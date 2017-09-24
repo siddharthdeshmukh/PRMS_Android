@@ -14,6 +14,7 @@ public class MainScreen extends AppCompatActivity {
     private Button mbtn_radio_program;
     private Button mbtn_schedule;
     private Button mbtn_logout;
+    private Button mbtn_user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +43,15 @@ public class MainScreen extends AppCompatActivity {
 
         });
 
+        //Maintain User Button
+        mbtn_user = (Button) findViewById(R.id.button_user);
+        //Click Listener on Maintain User Buttin
+        mbtn_user.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+               ControlFactory.getMainController().selectMaintainUser();
+            }
+        });
         // Log out  - Back to PRMS  Activity - Pre Login Page
         mbtn_logout = (Button) findViewById(R.id.btnLogout);
         // Set a click listener on Logout Button
