@@ -67,4 +67,8 @@ public class MainController {
     public void maintainedUser() {
         startUseCase(username);
     }
+
+    public void maintainSchedule() {
+        startUseCase(username);
+    }
 }
