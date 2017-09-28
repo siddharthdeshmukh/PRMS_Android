@@ -32,7 +32,7 @@ public class ScheduleAdapter extends ArrayAdapter<ProgramSlot> {
         View listItemView = convertView;
         if (listItemView == null) {
             listItemView = LayoutInflater.from(getContext()).inflate(
-                    R.layout.activity_radio_program, parent, false);
+                    R.layout.activity_schedule, parent, false);
         }
         //    Word currentWord = getItem(position);
         ProgramSlot currentPS = getItem(position);
@@ -46,12 +46,20 @@ public class ScheduleAdapter extends ArrayAdapter<ProgramSlot> {
         SlotDate.setKeyListener(null);
 
         EditText SlotTime = (EditText)listItemView.findViewById(R.id.maintain_schedule_starttime_text_view);
-        SlotTime.setText(currentPS.getScheduleStartTime(), TextView.BufferType.NORMAL);
+        SlotTime.setText(currentPS.getScheduleStartTime().substring(11,19), TextView.BufferType.NORMAL);
         SlotTime.setKeyListener(null);
 
         EditText SlotDuration = (EditText)listItemView.findViewById(R.id.maintain_schedule_duration_text_view);
         SlotDuration.setText(currentPS.getScheduleDuration(), TextView.BufferType.NORMAL);
         SlotDuration.setKeyListener(null);
+
+        EditText presenter = (EditText)listItemView.findViewById(R.id.maintain_schedule_Presenter_text_view);
+        presenter.setText(currentPS.getPresenter(), TextView.BufferType.NORMAL);
+        presenter.setKeyListener(null);
+
+        EditText producer = (EditText)listItemView.findViewById(R.id.maintain_schedule_Producer_text_view);
+        producer.setText(currentPS.getProducer(), TextView.BufferType.NORMAL);
+        producer.setKeyListener(null);
 
         return listItemView;
     }

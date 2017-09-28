@@ -61,7 +61,7 @@ public class RetrieveScheduleDelegate extends AsyncTask<String, Void, String>{
         } finally {
             if (urlConnection != null) urlConnection.disconnect();
         }
-
+        Log.i(TAG,jsonResp);
         return jsonResp;
 }
 
@@ -76,12 +76,14 @@ public class RetrieveScheduleDelegate extends AsyncTask<String, Void, String>{
 
                 for (int i = 0; i < spArray.length(); i++) {
                     JSONObject spJson = spArray.getJSONObject(i);
-                    String ProgamName = spJson.getString("ProgamName");
-                    String DateOfProgram = spJson.getString("DateOfProgram");
-                    String Duration = spJson.getString("Duration");
-                    String Starttime = spJson.getString("Starttime");
+                    String ProgamName = spJson.getString("progamName");
+                    String DateOfProgram = spJson.getString("dateOfProgram");
+                    String Duration = spJson.getString("duration");
+                    String Starttime = spJson.getString("starttime");
+                    String presenter = spJson.getString("presenter");
+                    String producer = spJson.getString("producer");
 
-                    programSlots.add(new ProgramSlot(ProgamName, DateOfProgram, Duration,Starttime));
+                    programSlots.add(new ProgramSlot(ProgamName, DateOfProgram, Duration, Starttime, presenter, producer));
                 }
             } catch (JSONException e) {
                 Log.v(TAG, e.getMessage());
@@ -90,9 +92,9 @@ public class RetrieveScheduleDelegate extends AsyncTask<String, Void, String>{
             Log.v(TAG, "JSON response error.");
         }
 
-        /*if (scheduleController != null)
-            scheduleController.(programSlots);
-        else if (reviewSelectProgramController != null)
+        if (scheduleController != null)
+            scheduleController.scheduleRetrieved(programSlots);
+        /*else if (reviewSelectProgramController != null)
             reviewSelectProgramController.programsRetrieved(radioPrograms);*/
     }
 }

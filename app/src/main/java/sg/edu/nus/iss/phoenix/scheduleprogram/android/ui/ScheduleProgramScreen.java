@@ -23,6 +23,8 @@ public class ScheduleProgramScreen extends AppCompatActivity {
     private EditText scheduleDurationEditText;
     private EditText scheduleTimeEditText;
     private EditText scheduleDateEditText;
+    private EditText schedulePresenter;
+    private EditText scheduleProducer;
     private ProgramSlot sp2edit = null;
     KeyListener sRPNameEditTextKeyListener = null;
 
@@ -36,7 +38,8 @@ public class ScheduleProgramScreen extends AppCompatActivity {
         scheduleDurationEditText = (EditText) findViewById(R.id.maintain_schedule_duration_text_view);
         scheduleTimeEditText = (EditText) findViewById(R.id.maintain_schedule_starttime_text_view);
         scheduleDateEditText = (EditText) findViewById(R.id.maintain_schedule_date_text_view);
-
+        schedulePresenter = (EditText) findViewById(R.id.maintain_schedule_Presenter_text_view);
+        scheduleProducer = (EditText) findViewById(R.id.maintain_schedule_Producer_text_view);
         // Keep the KeyListener for name EditText so as to enable editing after disabling it.
         sRPNameEditTextKeyListener = scheduleRPNameEditText.getKeyListener();
     }
@@ -75,7 +78,9 @@ public boolean onOptionsItemSelected(MenuItem item) {
             if (sp2edit == null) { // Newly created.
                 Log.v(TAG, "Saving schedule program " + scheduleRPNameEditText.toString() + "...");
                 ProgramSlot programSlot = new ProgramSlot(scheduleRPNameEditText.getText().toString(),
-                        scheduleDateEditText.getText().toString(), scheduleDurationEditText.getText().toString(),scheduleTimeEditText.getText().toString());
+                        scheduleDateEditText.getText().toString(), scheduleDurationEditText.getText().toString(),
+                        scheduleTimeEditText.getText().toString(), schedulePresenter.getText().toString(),
+                        scheduleProducer.getText().toString());
                 ControlFactory.getScheduleController().selectCreateSchedule(programSlot);
             }
             else { // Edited.
@@ -112,6 +117,8 @@ public boolean onOptionsItemSelected(MenuItem item) {
         scheduleTimeEditText.setText("", TextView.BufferType.EDITABLE);
         scheduleDurationEditText.setText("", TextView.BufferType.EDITABLE);
         scheduleDateEditText.setText("",TextView.BufferType.EDITABLE);
+        schedulePresenter.setText("",TextView.BufferType.EDITABLE);
+        scheduleProducer.setText("",TextView.BufferType.EDITABLE);
         scheduleRPNameEditText.setKeyListener(sRPNameEditTextKeyListener);
     }
 
@@ -122,6 +129,8 @@ public boolean onOptionsItemSelected(MenuItem item) {
             scheduleDateEditText.setText(sp2edit.getScheduleDate(),TextView.BufferType.NORMAL);
             scheduleDurationEditText.setText(sp2edit.getScheduleDuration(), TextView.BufferType.EDITABLE);
             scheduleTimeEditText.setText(sp2edit.getScheduleStartTime(), TextView.BufferType.EDITABLE);
+            schedulePresenter.setText(sp2edit.getPresenter(), TextView.BufferType.EDITABLE);
+            scheduleProducer.setText(sp2edit.getProducer(), TextView.BufferType.EDITABLE);
             scheduleRPNameEditText.setKeyListener(null);
         }
     }

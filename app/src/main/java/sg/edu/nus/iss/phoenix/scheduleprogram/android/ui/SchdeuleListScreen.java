@@ -1,18 +1,14 @@
 package sg.edu.nus.iss.phoenix.scheduleprogram.android.ui;
 
-import java.util.List;
-
-import sg.edu.nus.iss.phoenix.scheduleprogram.entity.ProgramSlot;
+import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -21,7 +17,7 @@ import java.util.List;
 
 import sg.edu.nus.iss.phoenix.R;
 import sg.edu.nus.iss.phoenix.core.android.controller.ControlFactory;
-import  sg.edu.nus.iss.phoenix.scheduleprogram.android.ui.ScheduleAdapter;
+import sg.edu.nus.iss.phoenix.scheduleprogram.entity.ProgramSlot;
 
 
 /**
@@ -32,7 +28,7 @@ public class SchdeuleListScreen extends AppCompatActivity  {
     //tag for logging
     private static final String TAG = SchdeuleListScreen.class.getName();
     private ListView mListView;
-    private ScheduleAdapter sRPAdapter;
+    private ScheduleAdapter mScheduleAdapter;
     private ProgramSlot selectedRP = null;
 
     @Override
@@ -45,7 +41,7 @@ public class SchdeuleListScreen extends AppCompatActivity  {
         // mDurationEditText = (EditText) findViewById(R.id.maintain_program_duration_text_view);
 
         ArrayList<ProgramSlot> slotsPrograms = new ArrayList<ProgramSlot>();
-        sRPAdapter = new ScheduleAdapter(this, slotsPrograms);
+        mScheduleAdapter = new ScheduleAdapter(this, slotsPrograms);
 
         // Setup FAB to open EditorActivity
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fabCreateSchedule);
@@ -56,8 +52,8 @@ public class SchdeuleListScreen extends AppCompatActivity  {
             }
         });
 
-        mListView = (ListView) findViewById(R.id.schedule_rp_list);
-        mListView.setAdapter(sRPAdapter);
+        mListView = (ListView) findViewById(R.id.schedule_list);
+        mListView.setAdapter(mScheduleAdapter);
 
         // Setup the item selection listener
         mListView.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -116,9 +112,9 @@ public class SchdeuleListScreen extends AppCompatActivity  {
     public void onBackPressed() {ControlFactory.getScheduleController().maintainedSchedule();}
 
     public void showSchedule(List<ProgramSlot> programSlots) {
-        sRPAdapter.clear();
+        mScheduleAdapter.clear();
         for (int i = 0; i < programSlots.size(); i++) {
-            sRPAdapter.add(programSlots.get(i));
+            mScheduleAdapter.add(programSlots.get(i));
         }
     }
 
