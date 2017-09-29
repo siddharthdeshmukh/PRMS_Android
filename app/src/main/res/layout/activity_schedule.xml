@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="16dp"
-    tools:context=".scheduleprogram.android.ui.ScheduleProgramScreen">
+    tools:context="sg.edu.nus.iss.phoenix.scheduleprogram.android.ui.ScheduleProgramScreen">
 
 
     <TextView
@@ -32,14 +32,27 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Presenter"
-        tools:text="Presenter's name" />
+        android:text="Producer"
+        tools:text="Producer's name" />
+    <EditText
+        android:id="@+id/maintain_schedule_Producer_text_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:text="Producer of the program" />
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Schedule Duration"
+        tools:text="Schedule Duration" />
     <EditText
         android:id="@+id/maintain_schedule_duration_text_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        tools:text="Enter Scheudle Duration" />
+        android:maxLength="8"
+        android:text="00:30:00"
+        tools:text="00:30:00" />
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -51,8 +64,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:maxLength="8"
-        android:text="00:30:00"
-        tools:text="00:30:00" />
+        />
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -63,7 +75,7 @@
         android:id="@+id/maintain_schedule_date_text_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:maxLength="8"
-        android:text="dd/mm/yyyy"
-        tools:text="dd/mm/yyyy" />
+        android:maxLength="10"
+        android:text="DD/mm/yyyy"
+        tools:text="DD/mm/yyyy" />
 </LinearLayout>

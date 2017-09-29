@@ -9,12 +9,17 @@ public class ProgramSlot {
     private String scheduleDate;
     private String scheduleDuration;
     private String scheduleStartTime;
+    private String presenter;
+    private String producer;
 
-    public ProgramSlot(String radioProgramName, String scheduleDate, String scheduleDuration, String scheduleStartTime) {
+
+    public ProgramSlot(String radioProgramName, String scheduleDate, String scheduleDuration, String scheduleStartTime, String presenter, String producer) {
         this.radioProgramName = radioProgramName;
        this.scheduleDate=scheduleDate;
         this.scheduleDuration=scheduleDuration;
         this.scheduleStartTime=scheduleStartTime;
+        this.presenter = presenter;
+        this.producer = producer;
     }
 
     public String getRadioProgramName() {
@@ -47,5 +52,21 @@ public class ProgramSlot {
 
     public void setScheduleDuration(String scheduleDuration) {
         this.scheduleDuration = scheduleDuration;
+    }
+
+    public String getPresenter() {
+        return presenter;
+    }
+
+    public void setPresenter(String presenter) {
+        this.presenter = presenter;
+    }
+
+    public String getProducer() {
+        return producer;
+    }
+
+    public void setProducer(String producer) {
+        this.producer = producer;
     }
 }
