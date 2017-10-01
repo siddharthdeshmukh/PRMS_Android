@@ -30,7 +30,7 @@ public class SchdeuleListScreen extends AppCompatActivity  {
     private ListView mListView;
     private ScheduleAdapter mScheduleAdapter;
     private ProgramSlot selectedRP = null;
-
+    private boolean scheduleList = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,6 +40,7 @@ public class SchdeuleListScreen extends AppCompatActivity  {
         // mRPDescEditText = (EditText) findViewById(R.id.maintain_program_desc_text_view);
         // mDurationEditText = (EditText) findViewById(R.id.maintain_program_duration_text_view);
 
+        scheduleList = getIntent().getExtras().getBoolean("copy");
         ArrayList<ProgramSlot> slotsPrograms = new ArrayList<ProgramSlot>();
         mScheduleAdapter = new ScheduleAdapter(this, slotsPrograms);
 
@@ -61,7 +62,7 @@ public class SchdeuleListScreen extends AppCompatActivity  {
             public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
                 // Log.v(TAG, "Radio program at position " + position + " selected.");
                 ProgramSlot programSlot = (ProgramSlot) adapterView.getItemAtPosition(position);
-                // Log.v(TAG, "Radio program name is " + rp.getRadioProgramName());
+                // Log.v(TAG, "Radio program name is " + rp.getRadioProgram());
                 selectedRP = programSlot;
 
             }
@@ -89,6 +90,20 @@ public class SchdeuleListScreen extends AppCompatActivity  {
     }
 
     @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        super.onPrepareOptionsMenu(menu);
+        if (scheduleList == true) {
+            MenuItem menuItem = menu.findItem(R.id.action_view);
+            menuItem.setVisible(false);
+        }else {
+            MenuItem menuItemCopy = menu.findItem(R.id.action_copy_button);
+            menuItemCopy.setVisible(false);
+        }
+
+        return true;
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // User clicked on a menu option in the app bar overflow menu
         switch (item.getItemId()) {
@@ -100,7 +115,17 @@ public class SchdeuleListScreen extends AppCompatActivity  {
                     Log.v(TAG, "There is no selected  schedule.");
                 }
                 else {
-                    Log.v(TAG, "Viewing schedule: " + selectedRP.getRadioProgramName() + "...");
+                    Log.v(TAG, "Viewing schedule: " + selectedRP.getRadioProgram() + "...");
+                    ControlFactory.getScheduleController().selectEditSchedule(selectedRP);
+                }
+            case R.id.action_copy_button:
+                if (selectedRP == null) {
+                    // Prompt for the selection of a radio program.
+                    Toast.makeText(this, "Select a  schedule first! Use arrow keys on emulator", Toast.LENGTH_SHORT).show();
+                    Log.v(TAG, "There is no selected  schedule.");
+                }
+                else {
+                    Log.v(TAG, "Viewing schedule: " + selectedRP.getRadioProgram() + "...");
                     ControlFactory.getScheduleController().selectEditSchedule(selectedRP);
                 }
         }

@@ -38,5 +38,14 @@
     <string name="action_save">Save</string>
     <string name="action_delete">Delete</string>
     <string name="action_select">Select</string>
+    <string name="action_copy">Copy</string>
+    <string name="date">Please enter date</string>
+    <string name="country_prompt">Choose duration</string>
+    <string-array name="country_arrays">
+        <item>30 min</item>
+        <item>60 min</item>
+        <item>120 min</item>
+        <item>180 min</item>
+    </string-array>
 
 </resources>

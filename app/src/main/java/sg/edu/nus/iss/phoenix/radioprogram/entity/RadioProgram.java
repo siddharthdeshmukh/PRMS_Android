@@ -1,15 +1,22 @@
 package sg.edu.nus.iss.phoenix.radioprogram.entity;
 
-public class RadioProgram {
+public class    RadioProgram {
 
     private String radioProgramName;
     private String radioProgramDescription;
     private String radioProgramDuration;
 
+    public RadioProgram() {
+    }
+
     public RadioProgram(String radioProgramName, String radioProgramDescription, String radioProgramDuration) {
         this.radioProgramName = radioProgramName;
         this.radioProgramDescription = radioProgramDescription;
         this.radioProgramDuration = radioProgramDuration;
+    }
+
+    public void setRadioProgramName(String radioProgramName) {
+        this.radioProgramName = radioProgramName;
     }
 
     public String getRadioProgramName() {

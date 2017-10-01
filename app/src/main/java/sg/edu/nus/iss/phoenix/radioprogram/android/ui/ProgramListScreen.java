@@ -1,15 +1,14 @@
 package sg.edu.nus.iss.phoenix.radioprogram.android.ui;
 
+import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -61,7 +60,7 @@ public class ProgramListScreen extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
                 // Log.v(TAG, "Radio program at position " + position + " selected.");
                 RadioProgram rp = (RadioProgram) adapterView.getItemAtPosition(position);
-                // Log.v(TAG, "Radio program name is " + rp.getRadioProgramName());
+                // Log.v(TAG, "Radio program name is " + rp.getRadioProgram());
                 selectedRP = rp;
             }
             @Override
@@ -84,7 +83,7 @@ public class ProgramListScreen extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu options from the res/menu/menu_editor.xml file.
         // This adds menu items to the app bar.
-        getMenuInflater().inflate(R.menu.menu_list, menu);
+        getMenuInflater().inflate(R.menu.menu_list_without_copy, menu);
         return true;
     }
 
@@ -93,7 +92,7 @@ public class ProgramListScreen extends AppCompatActivity {
         // User clicked on a menu option in the app bar overflow menu
         switch (item.getItemId()) {
             // Respond to a click on the "View" menu option
-            case R.id.action_view:
+            case R.id.action_view2:
                 if (selectedRP == null) {
                     // Prompt for the selection of a radio program.
                     Toast.makeText(this, "Select a radio program first! Use arrow keys on emulator", Toast.LENGTH_SHORT).show();

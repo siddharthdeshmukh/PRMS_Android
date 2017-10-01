@@ -4,16 +4,11 @@ import android.content.Intent;
 import android.util.Log;
 
 import java.util.List;
-import java.util.ResourceBundle;
 
 import sg.edu.nus.iss.phoenix.core.android.controller.ControlFactory;
 import sg.edu.nus.iss.phoenix.core.android.controller.MainController;
-import sg.edu.nus.iss.phoenix.radioprogram.android.delegate.CreateProgramDelegate;
-import sg.edu.nus.iss.phoenix.radioprogram.android.delegate.DeleteProgramDelegate;
 import sg.edu.nus.iss.phoenix.radioprogram.android.delegate.RetrieveProgramsDelegate;
-import sg.edu.nus.iss.phoenix.radioprogram.android.delegate.UpdateProgramDelegate;
 import sg.edu.nus.iss.phoenix.radioprogram.android.ui.MaintainProgramScreen;
-import sg.edu.nus.iss.phoenix.radioprogram.android.ui.ProgramListScreen;
 import sg.edu.nus.iss.phoenix.radioprogram.android.ui.ReviewSelectProgramScreen;
 import sg.edu.nus.iss.phoenix.radioprogram.entity.RadioProgram;
 
@@ -42,9 +37,9 @@ public class ReviewSelectProgramController {
     public void selectProgram(RadioProgram radioProgram) {
         rpSelected = radioProgram;
         Log.v(TAG, "Selected radio program: " + radioProgram.getRadioProgramName() + ".");
-        // To call the base use case controller with the selected radio program.
-        // At present, call the MainController instead.
-        ControlFactory.getMainController().selectedProgram(rpSelected);
+        ControlFactory.getProgramController().reviewSelectProgramSelected(rpSelected);
+        Intent intent = new Intent(MainController.getApp(), MaintainProgramScreen.class);
+        MainController.displayScreen(intent);
     }
 
     public void selectCancel() {

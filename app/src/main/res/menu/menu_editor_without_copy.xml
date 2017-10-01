@@ -4,21 +4,17 @@
 
     <!-- android:icon="@drawable/ic_done" -->
     <item
-        android:id="@+id/action_cancel"
+        android:id="@+id/action_cancel2"
         android:title="@string/action_cancel"
 
         app:showAsAction="always" />
     <item
-        android:id="@+id/action_save"
+        android:id="@+id/action_save2"
         android:title="@string/action_save"
 
         app:showAsAction="always" />
     <item
-        android:id="@+id/action_delete"
+        android:id="@+id/action_delete2"
         android:title="@string/action_delete"
-        app:showAsAction="always" />
-    <item
-        android:id="@+id/action_copy"
-        android:title="@string/action_copy"
         app:showAsAction="always" />
 </menu>

@@ -1,4 +1,4 @@
-package sg.edu.nus.iss.phoenix.radioprogram.android.ui;
+package sg.edu.nus.iss.phoenix.scheduleprogram.android.ui;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -16,28 +16,32 @@ import java.util.List;
 
 import sg.edu.nus.iss.phoenix.R;
 import sg.edu.nus.iss.phoenix.core.android.controller.ControlFactory;
-import sg.edu.nus.iss.phoenix.radioprogram.entity.RadioProgram;
+import sg.edu.nus.iss.phoenix.scheduleprogram.entity.ProgramSlot;
 
-public class ReviewSelectProgramScreen extends AppCompatActivity {
+/**
+ * Created by Ritesh on 10/1/2017.
+ */
+
+public class ReviewSelectScheduleScreen extends AppCompatActivity{
     // Tag for logging
-    private static final String TAG = ReviewSelectProgramScreen.class.getName();
+    private static final String TAG = ReviewSelectScheduleScreen.class.getName();
 
-    private RadioProgramAdapter mRPAdapter;
+    private ScheduleAdapter mRPAdapter;
     // private ArrayAdapter<String> adapter = null;
     private ListView mListView;
-    private RadioProgram selectedRP = null;
+    private ProgramSlot selectedRP = null;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_review_select_program);
+        setContentView(R.layout.activity_review_select_schedule);
 
-        ArrayList<RadioProgram> radioPrograms = new ArrayList<RadioProgram>();
+        ArrayList<ProgramSlot> programSlot = new ArrayList<ProgramSlot>();
         // ArrayList<String> radioProgramNames = new ArrayList<String>();
         // mRPAdapter = new ArrayAdapter<String>(this, R.layout.activity_review_select_program,
         //        R.id.maintain_program_name_text_view, radioProgramNames);
-        mRPAdapter = new RadioProgramAdapter(this, radioPrograms);
+        mRPAdapter = new ScheduleAdapter(this, programSlot);
 
-        mListView = (ListView) findViewById(R.id.review_select_pm_list);
+        mListView = (ListView) findViewById(R.id.review_select_schedule_list);
         mListView.setAdapter(mRPAdapter);
 
         // Setup the item selection listener
@@ -45,10 +49,11 @@ public class ReviewSelectProgramScreen extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
                 // Log.v(TAG, "Radio program at position " + position + " selected.");
-                RadioProgram rp = (RadioProgram) adapterView.getItemAtPosition(position);
+                ProgramSlot rp = (ProgramSlot) adapterView.getItemAtPosition(position);
                 // Log.v(TAG, "Radio program name is " + rp.getRadioProgram());
                 selectedRP = rp;
             }
+
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
                 // your stuff
@@ -62,7 +67,7 @@ public class ReviewSelectProgramScreen extends AppCompatActivity {
         mListView.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
         mListView.setSelection(0);
 
-        ControlFactory.getReviewSelectProgramController().onDisplay(this);
+        ControlFactory.getReviewSelectScheduleController().onDisplay(this);
     }
 
     @Override
@@ -81,12 +86,11 @@ public class ReviewSelectProgramScreen extends AppCompatActivity {
             case R.id.action_select:
                 if (selectedRP == null) {
                     // Prompt for the selection of a radio program.
-                    Toast.makeText(this, "Select a radio program first! Use arrow keys on emulator", Toast.LENGTH_SHORT).show();
-                    Log.v(TAG, "There is no selected radio program.");
-                }
-                else {
-                    Log.v(TAG, "Selected radio program: " + selectedRP.getRadioProgramName() + "...");
-                    ControlFactory.getReviewSelectProgramController().selectProgram(selectedRP);
+                    Toast.makeText(this, "Select a schedule program first! Use arrow keys on emulator", Toast.LENGTH_SHORT).show();
+                    Log.v(TAG, "There is no selected schedule program.");
+                } else {
+                    Log.v(TAG, "Selected schdeule program: " + selectedRP.getRadioProgram() + "...");
+                    ControlFactory.getReviewSelectScheduleController().selectProgram(selectedRP);
                 }
         }
 
@@ -95,14 +99,13 @@ public class ReviewSelectProgramScreen extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        ControlFactory.getReviewSelectProgramController().selectCancel();
+        ControlFactory.getReviewSelectScheduleController().selectCancel();
     }
 
-    public void showPrograms(List<RadioProgram> radioPrograms) {
+    public void showPrograms(List<ProgramSlot> programSlot) {
         mRPAdapter.clear();
-        for (int i = 0; i < radioPrograms.size(); i++) {
-            mRPAdapter.add(radioPrograms.get(i));
+        for (int i = 0; i < programSlot.size(); i++) {
+            mRPAdapter.add(programSlot.get(i));
         }
     }
 }
-

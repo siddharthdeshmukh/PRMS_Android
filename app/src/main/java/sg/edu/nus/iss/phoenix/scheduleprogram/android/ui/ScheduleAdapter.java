@@ -3,18 +3,19 @@ package sg.edu.nus.iss.phoenix.scheduleprogram.android.ui;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import java.util.ArrayList;
-
+import java.util.List;
 
 import sg.edu.nus.iss.phoenix.R;
-
 import sg.edu.nus.iss.phoenix.scheduleprogram.entity.ProgramSlot;
 
 /**
@@ -37,21 +38,26 @@ public class ScheduleAdapter extends ArrayAdapter<ProgramSlot> {
         //    Word currentWord = getItem(position);
         ProgramSlot currentPS = getItem(position);
 
-        EditText SlotName = (EditText)listItemView.findViewById(R.id.maintain_schedule_name_text_view);
-        SlotName.setText(currentPS.getRadioProgramName(), TextView.BufferType.NORMAL);
-        SlotName.setKeyListener(null); // This disables editing.
+        EditText slotName = (EditText)listItemView.findViewById(R.id.maintain_schedule_name_text_view);
+        slotName.setText(currentPS.getRadioProgram().getRadioProgramName(), TextView.BufferType.NORMAL);
+        slotName.setKeyListener(null); // This disables editing.
 
-        EditText SlotDate = (EditText)listItemView.findViewById(R.id.maintain_schedule_date_text_view);
-        SlotDate.setText(currentPS.getScheduleDate(), TextView.BufferType.NORMAL);
-        SlotDate.setKeyListener(null);
+        EditText slotDate = (EditText)listItemView.findViewById(R.id.maintain_schedule_date_text_view);
+        slotDate.setText(currentPS.getScheduleDate(), TextView.BufferType.NORMAL);
+        slotDate.setKeyListener(null);
 
-        EditText SlotTime = (EditText)listItemView.findViewById(R.id.maintain_schedule_starttime_text_view);
-        SlotTime.setText(currentPS.getScheduleStartTime().substring(11,19), TextView.BufferType.NORMAL);
-        SlotTime.setKeyListener(null);
+        EditText slotTime = (EditText)listItemView.findViewById(R.id.maintain_schedule_starttime_text_view);
+        slotTime.setText(currentPS.getScheduleStartTime().substring(11,19), TextView.BufferType.NORMAL);
+        slotTime.setKeyListener(null);
 
-        EditText SlotDuration = (EditText)listItemView.findViewById(R.id.maintain_schedule_duration_text_view);
-        SlotDuration.setText(currentPS.getScheduleDuration(), TextView.BufferType.NORMAL);
-        SlotDuration.setKeyListener(null);
+        Spinner slotDuration = (Spinner) listItemView.findViewById(R.id.maintain_schedule_duration_text_view);
+        List<String> dbValue = new ArrayList<String>();
+        Log.v("currentDur",String.valueOf(currentPS.getScheduleDuration()));
+        dbValue.add(String.valueOf(currentPS.getScheduleDuration()));
+        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(getContext(),
+                android.R.layout.simple_spinner_item, dbValue);
+        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        slotDuration.setAdapter(dataAdapter);
 
         EditText presenter = (EditText)listItemView.findViewById(R.id.maintain_schedule_Presenter_text_view);
         presenter.setText(currentPS.getPresenter(), TextView.BufferType.NORMAL);

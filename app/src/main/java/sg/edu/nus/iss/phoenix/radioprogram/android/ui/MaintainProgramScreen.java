@@ -1,12 +1,13 @@
 package sg.edu.nus.iss.phoenix.radioprogram.android.ui;
 
+import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.text.method.KeyListener;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -35,6 +36,13 @@ public class MaintainProgramScreen extends AppCompatActivity {
         mDurationEditText = (EditText) findViewById(R.id.maintain_program_duration_text_view);
         // Keep the KeyListener for name EditText so as to enable editing after disabling it.
         mRPNameEditTextKeyListener = mRPNameEditText.getKeyListener();
+        mRPNameEditText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ControlFactory.getReviewSelectProgramController().startUseCase();
+            }
+
+        });
     }
 
     @Override
@@ -47,7 +55,7 @@ public class MaintainProgramScreen extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu options from the res/menu/menu_editor.xml file.
         // This adds menu items to the app bar.
-        getMenuInflater().inflate(R.menu.menu_editor, menu);
+        getMenuInflater().inflate(R.menu.menu_editor_without_copy, menu);
         return true;
     }
 
@@ -71,7 +79,7 @@ public class MaintainProgramScreen extends AppCompatActivity {
         // User clicked on a menu option in the app bar overflow menu
         switch (item.getItemId()) {
             // Respond to a click on the "Save" menu option
-            case R.id.action_save:
+            case R.id.action_save2:
                 // Save radio program.
                 if (rp2edit == null) { // Newly created.
                     Log.v(TAG, "Saving radio program " + mRPNameEditText.getText().toString() + "...");
@@ -87,12 +95,12 @@ public class MaintainProgramScreen extends AppCompatActivity {
                 }
                 return true;
             // Respond to a click on the "Delete" menu option
-            case R.id.action_delete:
+            case R.id.action_delete2:
                 Log.v(TAG, "Deleting radio program " + rp2edit.getRadioProgramName() + "...");
                 ControlFactory.getProgramController().selectDeleteProgram(rp2edit);
                 return true;
             // Respond to a click on the "Cancel" menu option
-            case R.id.action_cancel:
+            case R.id.action_cancel2:
                 Log.v(TAG, "Canceling creating/editing radio program...");
                 ControlFactory.getProgramController().selectCancelCreateEditProgram();
                 return true;
