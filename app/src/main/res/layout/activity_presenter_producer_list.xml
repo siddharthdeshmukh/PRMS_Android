@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".scheduleprogram.android.ui.ReviewSelectPresenterProducerScreen">
-    <TextView
+    <!--<TextView
         android:id="@+id/pres_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -14,13 +14,13 @@
         android:textSize="20dp"
         android:textStyle="bold"
         android:background="@android:color/holo_blue_dark"
-        android:text="PRESENTERS" />
+        android:text="PRESENTERS" />-->
     <ListView xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/presenter_list"
+        android:id="@+id/presenter_Producer_list"
         android:orientation="vertical"
         android:paddingBottom="@dimen/activity_vertical_margin"
         android:paddingLeft="@dimen/activity_horizontal_margin"
@@ -29,7 +29,7 @@
         tools:context=".scheduleprogram.android.ui.ReviewSelectPresenterProducerScreen">
     </ListView>
 
-    <TextView
+    <!--<TextView
         android:id="@+id/prod_title"
         android:layout_below="@id/presenter_list"
         android:layout_width="match_parent"
@@ -52,6 +52,6 @@
         android:paddingRight="@dimen/activity_horizontal_margin"
         android:paddingTop="@dimen/activity_vertical_margin"
         tools:context=".scheduleprogram.android.ui.ReviewSelectPresenterProducerScreen">
-    </ListView>
+    </ListView>-->
 
 </LinearLayout>

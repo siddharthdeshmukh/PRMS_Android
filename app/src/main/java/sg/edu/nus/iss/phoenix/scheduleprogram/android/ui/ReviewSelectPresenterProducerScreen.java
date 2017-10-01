@@ -1,7 +1,6 @@
 package sg.edu.nus.iss.phoenix.scheduleprogram.android.ui;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
@@ -19,7 +18,7 @@ import sg.edu.nus.iss.phoenix.user.entity.Producer;
  * Created by Shubhanshu Gautam (e0146956) on 9/28/2017.
  */
 
-public class ReviewSelectPresenterProducerScreen extends AppCompatActivity {
+public class ReviewSelectPresenterProducerScreen extends AppCompatActivity{
 
     private static final String TAG = SchdeuleListScreen.class.getName();
     private ListView mPresenterListView;
@@ -35,22 +34,26 @@ public class ReviewSelectPresenterProducerScreen extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_presenter_producer_list);
-
+        if(getIntent().getExtras().getString("type").equalsIgnoreCase("presenter")){
         setupPresenter();
+        ControlFactory.getReviewSelectPresenterProducerController().onDisplayPresenter(this);
+        }
+        else if(getIntent().getExtras().getString("type").equalsIgnoreCase("producer")){
         setupProducer();
+        ControlFactory.getReviewSelectPresenterProducerController().onDisplayProducer(this);}
     }
 
-    @Override
+    /*@Override
     protected void onPostCreate(@Nullable Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
         ControlFactory.getReviewSelectPresenterProducerController().onDisplay(this);
-    }
+    }*/
 
     private void setupPresenter(){
         ArrayList<Presenter> presenters = new ArrayList<Presenter>();
         mPresenterAdapter = new PresenterArrayAdapter(this, presenters);
 
-        mPresenterListView = (ListView) findViewById(R.id.presenter_list);
+        mPresenterListView = (ListView) findViewById(R.id.presenter_Producer_list);
         mPresenterListView.setAdapter(mPresenterAdapter);
 
         // Setup the item selection listener
@@ -65,6 +68,14 @@ public class ReviewSelectPresenterProducerScreen extends AppCompatActivity {
                 // your stuff
             }
         });
+
+        mPresenterListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            public void onItemClick(AdapterView<?> parent, View view,
+                                    int position, long id) {
+                mSelectedPresenter = (Presenter) parent.getItemAtPosition(position);
+                ControlFactory.getReviewSelectPresenterProducerController().selectPresenter(mSelectedPresenter);
+            }
+        });
     }
 
     private void setupProducer(){
@@ -72,7 +83,7 @@ public class ReviewSelectPresenterProducerScreen extends AppCompatActivity {
         ArrayList<Producer> producers = new ArrayList<Producer>();
         mProducerAdapter = new ProducerArrayAdapter(this, producers);
 
-        mProducerListView = (ListView) findViewById(R.id.producer_list);
+        mProducerListView = (ListView) findViewById(R.id.presenter_Producer_list);
         mProducerListView.setAdapter(mProducerAdapter);
 
         // Setup the item selection listener
@@ -85,6 +96,14 @@ public class ReviewSelectPresenterProducerScreen extends AppCompatActivity {
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
                 // your stuff
+            }
+        });
+
+        mProducerListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            public void onItemClick(AdapterView<?> parent, View view,
+                                    int position, long id) {
+                mSelectedProducer = (Producer) parent.getItemAtPosition(position);
+                ControlFactory.getReviewSelectPresenterProducerController().selectProducer(mSelectedProducer);
             }
         });
     }
@@ -107,4 +126,5 @@ public class ReviewSelectPresenterProducerScreen extends AppCompatActivity {
             mProducerAdapter.add(producers.get(i));
         }
     }
+
 }

@@ -26,18 +26,19 @@
             android:text="Presenter"
             android:id="@+id/sch_pres_title"
             tools:text="Presenter" />
-    <RelativeLayout
+    <!--<RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content">-->
         <EditText
             android:id="@+id/maintain_schedule_Presenter_text_view"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:inputType="none"
+            android:clickable="true"
+            android:focusable="false"
             tools:text="Presenter of the program" />
 
-        <Button
+        <!--<Button
             android:id="@+id/select_presenter_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -45,25 +46,26 @@
             android:layout_centerVertical="true"
             android:layout_marginEnd="16dp"
             android:text="Select"
-            android:onClick="selectPresenter"/>
+            android:onClick="selectPresenter"/>-->
 
-    </RelativeLayout>
+    <!--</RelativeLayout>-->
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Producer"
         tools:text="Producer" />
-    <RelativeLayout
+    <!--<RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content">-->
         <EditText
             android:id="@+id/maintain_schedule_Producer_text_view"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:inputType="none"
+            android:clickable="true"
+            android:focusable="false"
             tools:text="Producer of the program" />
-        <Button
+        <!--<Button
             android:id="@+id/select_producer_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -71,8 +73,8 @@
             android:layout_centerVertical="true"
             android:layout_marginEnd="16dp"
             android:text="Select"
-            android:onClick="selectProducer"/>
-    </RelativeLayout>
+            android:onClick="selectProducer"/>-->
+   <!-- </RelativeLayout>-->
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

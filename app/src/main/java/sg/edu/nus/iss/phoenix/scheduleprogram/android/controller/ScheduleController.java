@@ -27,10 +27,12 @@ public class ScheduleController {
     private ProgramSlot sp2edit = null;
     private Presenter selectedPresenter;
     private Producer selectedProducer;
-    private String reviewSelect = "";
+    private String reviewSelect;
     public void startUseCase() {
         sp2edit = null;
         reviewSelect = "";
+        selectedPresenter = null;
+        selectedProducer = null;
         Intent intent = new Intent(MainController.getApp(), SchdeuleListScreen.class);
         intent.putExtra("copy",false);
         MainController.displayScreen(intent);
@@ -75,24 +77,32 @@ public class ScheduleController {
     // -----
     public void reviewSelectPresenterSelected(Presenter presenterSelected) {
         selectedPresenter = presenterSelected;
-        reviewSelect = "true";
     }
 
     public void reviewSelectProducerSelected(Producer producerSelected) {
         selectedProducer= producerSelected;
-        reviewSelect = "true";
     }
     // -----
 
     public void onDisplayScheduleProgram(ScheduleProgramScreen scheduleProgramScreen) {
         this.scheduleProgramScreen = scheduleProgramScreen;
-        if (sp2edit == null)
+        if (sp2edit == null){
             scheduleProgramScreen.createSchedule();
+            if(selectedPresenter != null)
+            scheduleProgramScreen.selectedPresenter(selectedPresenter);
+            if(selectedProducer != null)
+                scheduleProgramScreen.selectedProducer(selectedProducer);
         /*else if(reviewSelect.equalsIgnoreCase("true")) {
             scheduleProgramScreen.selectSchedule(sp2edit);
         }*/
-        else
-            scheduleProgramScreen.editSchedule(sp2edit,reviewSelect);
+        }
+        else {
+            scheduleProgramScreen.editSchedule(sp2edit, reviewSelect);
+            if (selectedPresenter != null)
+                scheduleProgramScreen.selectedPresenter(selectedPresenter);
+            if (selectedProducer != null)
+                scheduleProgramScreen.selectedProducer(selectedProducer);
+        }
     }
 
 

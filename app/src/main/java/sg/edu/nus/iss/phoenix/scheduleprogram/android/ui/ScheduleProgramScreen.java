@@ -17,11 +17,9 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
@@ -30,9 +28,8 @@ import sg.edu.nus.iss.phoenix.core.android.controller.ControlFactory;
 import sg.edu.nus.iss.phoenix.radioprogram.entity.RadioProgram;
 import sg.edu.nus.iss.phoenix.scheduleprogram.entity.ProgramSlot;
 import sg.edu.nus.iss.phoenix.scheduleprogram.util.Util;
-
-import static sg.edu.nus.iss.phoenix.scheduleprogram.util.Util.convertDateToString;
-import static sg.edu.nus.iss.phoenix.scheduleprogram.util.Util.convertStringToDate;
+import sg.edu.nus.iss.phoenix.user.entity.Presenter;
+import sg.edu.nus.iss.phoenix.user.entity.Producer;
 
 /**
  * Created by thushara on 9/26/2017.
@@ -71,9 +68,21 @@ public class ScheduleProgramScreen extends AppCompatActivity {
             public void onClick(View view) {
                 ControlFactory.getReviewSelectScheduleController().startUseCase();
             }
-
         });
 
+        schedulePresenter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ControlFactory.getReviewSelectPresenterProducerController().startUseCase("presenter");
+            }
+        });
+
+        scheduleProducer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ControlFactory.getReviewSelectPresenterProducerController().startUseCase("producer");
+            }
+        });
         scheduleDurationEditText=(Spinner) findViewById(R.id.maintain_schedule_duration_text_view);
         setSpinner();
 
@@ -218,14 +227,22 @@ public boolean onOptionsItemSelected(MenuItem item) {
         ControlFactory.getScheduleController().selectCancelCreateEditSchedule();
     }
 
+    public void selectedPresenter(Presenter presenter) {
+        this.schedulePresenter.setText(presenter.getId(), TextView.BufferType.EDITABLE);
+    }
+
+    public void selectedProducer(Producer producer) {
+        this.scheduleProducer.setText(producer.getId());
+    }
+
     public void createSchedule() {
         this.sp2edit = null;
         scheduleRPNameEditText.setText("", TextView.BufferType.EDITABLE);
         scheduleTimeEditText.setText("", TextView.BufferType.EDITABLE);
         setSpinner();
         scheduleDateEditText.setText("",TextView.BufferType.EDITABLE);
-        schedulePresenter.setText("",TextView.BufferType.EDITABLE);
-        scheduleProducer.setText("",TextView.BufferType.EDITABLE);
+        //schedulePresenter.setText("",TextView.BufferType.EDITABLE);
+        //scheduleProducer.setText("",TextView.BufferType.EDITABLE);
         scheduleRPNameEditText.setKeyListener(sRPNameEditTextKeyListener);
     }
 

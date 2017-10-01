@@ -48,6 +48,16 @@ public class ReviewSelectPresenterProducerController {
         new RetrieveProducerDelegate(this).execute("all");
     }
 
+    public void onDisplayPresenter(ReviewSelectPresenterProducerScreen reviewSelectPresenterProducerScreen) {
+        this.reviewSelectPresenterProducerScreen = reviewSelectPresenterProducerScreen;
+        new RetrievePresenterDelegate(this).execute("all");
+    }
+
+    public void onDisplayProducer(ReviewSelectPresenterProducerScreen reviewSelectPresenterProducerScreen) {
+        this.reviewSelectPresenterProducerScreen = reviewSelectPresenterProducerScreen;
+        new RetrieveProducerDelegate(this).execute("all");
+    }
+
     public void presentersRetrieved(List<Presenter> presenters) {
         reviewSelectPresenterProducerScreen.showPresenters(presenters);
     }
