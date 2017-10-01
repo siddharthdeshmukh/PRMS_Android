@@ -5,10 +5,12 @@ import android.util.Log;
 
 import java.util.List;
 
+import sg.edu.nus.iss.phoenix.core.android.controller.ControlFactory;
 import sg.edu.nus.iss.phoenix.core.android.controller.MainController;
 import sg.edu.nus.iss.phoenix.scheduleprogram.android.delegate.RetrievePresenterDelegate;
 import sg.edu.nus.iss.phoenix.scheduleprogram.android.delegate.RetrieveProducerDelegate;
 import sg.edu.nus.iss.phoenix.scheduleprogram.android.ui.ReviewSelectPresenterProducerScreen;
+import sg.edu.nus.iss.phoenix.scheduleprogram.android.ui.ScheduleProgramScreen;
 import sg.edu.nus.iss.phoenix.user.entity.Presenter;
 import sg.edu.nus.iss.phoenix.user.entity.Producer;
 
@@ -56,12 +58,20 @@ public class ReviewSelectPresenterProducerController {
     public void selectPresenter(Presenter presenter) {
         presenterSelected = presenter;
         Log.v(TAG, "Selected presenter: " + presenter.getName() + ".");
+        ControlFactory.getScheduleController().reviewSelectPresenterSelected(presenter);
+        Intent intent = new Intent(MainController.getApp(), ScheduleProgramScreen.class);
+        intent.putExtra("presenter",presenter.getName());
+        MainController.displayScreen(intent);
         //TODO call the base use case controller with the selected presenter.
 
     }
     public void selectProducer(Producer producer) {
         producerSelected = producer;
         Log.v(TAG, "Selected producer: " + producer.getName() + ".");
+        ControlFactory.getScheduleController().reviewSelectProducerSelected(producer);
+        Intent intent = new Intent(MainController.getApp(), ScheduleProgramScreen.class);
+        intent.putExtra("producer",producer.getName());
+        MainController.displayScreen(intent);
         //TODO call the base use case controller with the selected presenter.
 
     }
@@ -70,6 +80,8 @@ public class ReviewSelectPresenterProducerController {
         presenterSelected = null;
         producerSelected=null;
         Log.v(TAG, "Cancelled the selection of presenter/producer.");
+        Intent intent = new Intent(MainController.getApp(), ScheduleProgramScreen.class);
+        MainController.displayScreen(intent);
         // TODO call the base use case controller without selection;
 
     }

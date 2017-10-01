@@ -13,6 +13,8 @@ import sg.edu.nus.iss.phoenix.scheduleprogram.android.delegate.RetrieveScheduleD
 import sg.edu.nus.iss.phoenix.scheduleprogram.android.ui.SchdeuleListScreen;
 import sg.edu.nus.iss.phoenix.scheduleprogram.android.ui.ScheduleProgramScreen;
 import sg.edu.nus.iss.phoenix.scheduleprogram.entity.ProgramSlot;
+import sg.edu.nus.iss.phoenix.user.entity.Presenter;
+import sg.edu.nus.iss.phoenix.user.entity.Producer;
 
 /**
  * Created by thushara on 9/26/2017.
@@ -23,6 +25,8 @@ public class ScheduleController {
     private SchdeuleListScreen scheduleListScreen;
     private ScheduleProgramScreen scheduleProgramScreen;
     private ProgramSlot sp2edit = null;
+    private Presenter selectedPresenter;
+    private Producer selectedProducer;
     private String reviewSelect = "";
     public void startUseCase() {
         sp2edit = null;
@@ -68,6 +72,17 @@ public class ScheduleController {
         sp2edit = rpSelected;
         reviewSelect = "true";
     }
+    // -----
+    public void reviewSelectPresenterSelected(Presenter presenterSelected) {
+        selectedPresenter = presenterSelected;
+        reviewSelect = "true";
+    }
+
+    public void reviewSelectProducerSelected(Producer producerSelected) {
+        selectedProducer= producerSelected;
+        reviewSelect = "true";
+    }
+    // -----
 
     public void onDisplayScheduleProgram(ScheduleProgramScreen scheduleProgramScreen) {
         this.scheduleProgramScreen = scheduleProgramScreen;

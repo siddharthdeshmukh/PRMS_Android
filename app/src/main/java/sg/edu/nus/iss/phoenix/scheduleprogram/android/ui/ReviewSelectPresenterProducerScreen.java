@@ -34,7 +34,7 @@ public class ReviewSelectPresenterProducerScreen extends AppCompatActivity {
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_review_select_program);
+        setContentView(R.layout.activity_presenter_producer_list);
 
         setupPresenter();
         setupProducer();

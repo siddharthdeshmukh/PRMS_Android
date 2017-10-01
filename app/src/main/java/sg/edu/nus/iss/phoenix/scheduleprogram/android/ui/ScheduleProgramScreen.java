@@ -248,5 +248,12 @@ public boolean onOptionsItemSelected(MenuItem item) {
         }
     }
 
+    public void selectPresenter(View v){
+        ControlFactory.getReviewSelectPresenterProducerController().startUseCase();
+    }
+    public void selectProducer(View v){
+        ControlFactory.getReviewSelectPresenterProducerController().startUseCase();
+    }
+
 }
 
