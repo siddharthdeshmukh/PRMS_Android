@@ -1,20 +1,22 @@
 package sg.edu.nus.iss.phoenix.scheduleprogram.entity;
 
+import sg.edu.nus.iss.phoenix.radioprogram.entity.RadioProgram;
+
 /**
  * Created by thushara on 9/26/2017.
  */
 
 public class ProgramSlot {
-    private String radioProgramName;
+    private RadioProgram radioProgram;
     private String scheduleDate;
-    private String scheduleDuration;
+    private Integer scheduleDuration;
     private String scheduleStartTime;
     private String presenter;
     private String producer;
 
 
-    public ProgramSlot(String radioProgramName, String scheduleDate, String scheduleDuration, String scheduleStartTime, String presenter, String producer) {
-        this.radioProgramName = radioProgramName;
+    public ProgramSlot(RadioProgram radioProgram, String scheduleDate, Integer scheduleDuration, String scheduleStartTime, String presenter, String producer) {
+        this.radioProgram = radioProgram;
        this.scheduleDate=scheduleDate;
         this.scheduleDuration=scheduleDuration;
         this.scheduleStartTime=scheduleStartTime;
@@ -22,12 +24,12 @@ public class ProgramSlot {
         this.producer = producer;
     }
 
-    public String getRadioProgramName() {
-        return radioProgramName;
+    public RadioProgram getRadioProgram() {
+        return radioProgram;
     }
 
-    public void setRadioProgramName(String radioProgramName) {
-        this.radioProgramName = radioProgramName;
+    public void setRadioProgram(RadioProgram radioProgram) {
+        this.radioProgram = radioProgram;
     }
 
     public String getScheduleDate() {
@@ -38,7 +40,7 @@ public class ProgramSlot {
         this.scheduleDate = scheduleDate;
     }
 
-    public String getScheduleDuration() {
+    public Integer getScheduleDuration() {
         return scheduleDuration;
     }
 
@@ -50,7 +52,7 @@ public class ProgramSlot {
         this.scheduleStartTime = scheduleStartTime;
     }
 
-    public void setScheduleDuration(String scheduleDuration) {
+    public void setScheduleDuration(Integer scheduleDuration) {
         this.scheduleDuration = scheduleDuration;
     }
 

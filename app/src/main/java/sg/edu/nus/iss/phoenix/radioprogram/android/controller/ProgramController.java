@@ -50,12 +50,16 @@ public class ProgramController {
 
         Intent intent = new Intent(MainController.getApp(), MaintainProgramScreen.class);
 /*        Bundle b = new Bundle();
-        b.putString("Name", radioProgram.getRadioProgramName());
+        b.putString("Name", radioProgram.getRadioProgram());
         b.putString("Description", radioProgram.getRadioProgramDescription());
         b.putString("Duration", radioProgram.getRadioProgramDuration());
         intent.putExtras(b);
 */
         MainController.displayScreen(intent);
+    }
+
+    public void reviewSelectProgramSelected(RadioProgram rpSelected) {
+        rp2edit = rpSelected;
     }
 
     public void onDisplayProgram(MaintainProgramScreen maintainProgramScreen) {

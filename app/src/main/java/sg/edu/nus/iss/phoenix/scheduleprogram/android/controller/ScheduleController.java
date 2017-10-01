@@ -1,17 +1,18 @@
 package sg.edu.nus.iss.phoenix.scheduleprogram.android.controller;
+
 import android.content.Intent;
 import android.util.Log;
 
 import java.util.List;
 
-import sg.edu.nus.iss.phoenix.core.android.controller.MainController;
 import sg.edu.nus.iss.phoenix.core.android.controller.ControlFactory;
-import sg.edu.nus.iss.phoenix.scheduleprogram.android.ui.SchdeuleListScreen;
-import sg.edu.nus.iss.phoenix.scheduleprogram.entity.ProgramSlot;
-import sg.edu.nus.iss.phoenix.scheduleprogram.android.delegate.RetrieveScheduleDelegate;
+import sg.edu.nus.iss.phoenix.core.android.controller.MainController;
 import sg.edu.nus.iss.phoenix.scheduleprogram.android.delegate.CreateScheduleDelegate;
 import sg.edu.nus.iss.phoenix.scheduleprogram.android.delegate.ModifyScheduleDelegate;
+import sg.edu.nus.iss.phoenix.scheduleprogram.android.delegate.RetrieveScheduleDelegate;
+import sg.edu.nus.iss.phoenix.scheduleprogram.android.ui.SchdeuleListScreen;
 import sg.edu.nus.iss.phoenix.scheduleprogram.android.ui.ScheduleProgramScreen;
+import sg.edu.nus.iss.phoenix.scheduleprogram.entity.ProgramSlot;
 
 /**
  * Created by thushara on 9/26/2017.
@@ -22,10 +23,12 @@ public class ScheduleController {
     private SchdeuleListScreen scheduleListScreen;
     private ScheduleProgramScreen scheduleProgramScreen;
     private ProgramSlot sp2edit = null;
-
+    private String reviewSelect = "";
     public void startUseCase() {
         sp2edit = null;
+        reviewSelect = "";
         Intent intent = new Intent(MainController.getApp(), SchdeuleListScreen.class);
+        intent.putExtra("copy",false);
         MainController.displayScreen(intent);
     }
     public void onDisplayProgramList(SchdeuleListScreen programListScreen) {
@@ -42,11 +45,11 @@ public class ScheduleController {
     }
     public void selectEditSchedule(ProgramSlot programSlot) {
         sp2edit = programSlot;
-        Log.v(TAG, "Editing program Slot : " + programSlot.getRadioProgramName() + "...");
+        Log.v(TAG, "Editing program Slot : " + programSlot.getRadioProgram() + "...");
 
         Intent intent = new Intent(MainController.getApp(), ScheduleProgramScreen.class);
 /*        Bundle b = new Bundle();
-        b.putString("Name", radioProgram.getRadioProgramName());
+        b.putString("Name", radioProgram.getRadioProgram());
         b.putString("Description", radioProgram.getRadioProgramDescription());
         b.putString("Duration", radioProgram.getRadioProgramDuration());
         intent.putExtras(b);
@@ -54,12 +57,27 @@ public class ScheduleController {
         MainController.displayScreen(intent);
     }
 
+    public void scheduleCopy() {
+        Intent intent = new Intent(MainController.getApp(), SchdeuleListScreen.class);
+        intent.putExtra("copy",true);
+        MainController.displayScreen(intent);
+        // new ModifyScheduleDelegate(this).execute(sp2edit);
+    }
+
+    public void reviewSelectProgramSelected(ProgramSlot rpSelected) {
+        sp2edit = rpSelected;
+        reviewSelect = "true";
+    }
+
     public void onDisplayScheduleProgram(ScheduleProgramScreen scheduleProgramScreen) {
         this.scheduleProgramScreen = scheduleProgramScreen;
         if (sp2edit == null)
             scheduleProgramScreen.createSchedule();
+        /*else if(reviewSelect.equalsIgnoreCase("true")) {
+            scheduleProgramScreen.selectSchedule(sp2edit);
+        }*/
         else
-            scheduleProgramScreen.editSchedule(sp2edit);
+            scheduleProgramScreen.editSchedule(sp2edit,reviewSelect);
     }
 
 
@@ -76,10 +94,6 @@ public class ScheduleController {
         startUseCase();
     }
 
-    public void selectCreateScheudle(ProgramSlot programSlot) {
-        new CreateScheduleDelegate(this).execute(programSlot);
-    }
-
     public void scheduleCreated(boolean success) {
         // Go back to List screen with refreshed programs.
         startUseCase();
@@ -90,9 +104,9 @@ public class ScheduleController {
         startUseCase();
     }
 
-    public void ScheduleProgram() {
-        ControlFactory.getMainController().maintainedProgram();
-    }
+//    public void ScheduleProgram() {
+//        ControlFactory.getMainController().maintainedProgram();
+//    }
 
     public void selectCreateSchedule(ProgramSlot programSlot) {
         new CreateScheduleDelegate(this).execute(programSlot);
@@ -102,14 +116,14 @@ public class ScheduleController {
         new ModifyScheduleDelegate(this).execute(sp2edit);
     }
 
-    public void onDisplayProgram(ScheduleProgramScreen scheduleProgramScreen) {
+   /* public void onDisplayProgram(ScheduleProgramScreen scheduleProgramScreen) {
         this.scheduleProgramScreen = scheduleProgramScreen;
         if (sp2edit == null) {
             scheduleProgramScreen.createSchedule();
         }
-        else{scheduleProgramScreen.editSchedule(sp2edit);}
+        else{scheduleProgramScreen.editSchedule(sp2edit,reviewSelect);}
 
-    }
+    }*/
     public void maintainedSchedule() {
         ControlFactory.getMainController().maintainSchedule();
     }

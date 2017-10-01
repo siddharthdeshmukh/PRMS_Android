@@ -3,6 +3,7 @@ package sg.edu.nus.iss.phoenix.core.android.controller;
 import sg.edu.nus.iss.phoenix.authenticate.android.controller.LoginController;
 import sg.edu.nus.iss.phoenix.radioprogram.android.controller.ProgramController;
 import sg.edu.nus.iss.phoenix.radioprogram.android.controller.ReviewSelectProgramController;
+import sg.edu.nus.iss.phoenix.scheduleprogram.android.controller.ReviewSelectScheduleController;
 import sg.edu.nus.iss.phoenix.user.android.controller.UserController;
 import sg.edu.nus.iss.phoenix.scheduleprogram.android.controller.ScheduleController;
 
@@ -12,6 +13,7 @@ public class ControlFactory {
     private static ProgramController programController = null;
     private static ScheduleController scheduleController = null;
     private static ReviewSelectProgramController reviewSelectProgramController = null;
+    private static ReviewSelectScheduleController reviewSelectScheduleController = null;
     private static UserController userController = null;
 
     public static MainController getMainController() {
@@ -39,6 +41,12 @@ public class ControlFactory {
         if (reviewSelectProgramController == null) reviewSelectProgramController = new ReviewSelectProgramController();
         return reviewSelectProgramController;
     }
+
+    public static ReviewSelectScheduleController getReviewSelectScheduleController() {
+        if (reviewSelectScheduleController == null) reviewSelectScheduleController = new ReviewSelectScheduleController();
+        return reviewSelectScheduleController;
+    }
+
     public static UserController getUserController() {
         if(userController == null)
             userController = new UserController();

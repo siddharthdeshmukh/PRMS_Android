@@ -1,4 +1,5 @@
 package sg.edu.nus.iss.phoenix.scheduleprogram.android.delegate;
+
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.util.Log;
@@ -16,6 +17,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import sg.edu.nus.iss.phoenix.radioprogram.entity.RadioProgram;
+import sg.edu.nus.iss.phoenix.scheduleprogram.android.controller.ReviewSelectScheduleController;
 import sg.edu.nus.iss.phoenix.scheduleprogram.android.controller.ScheduleController;
 import sg.edu.nus.iss.phoenix.scheduleprogram.entity.ProgramSlot;
 
@@ -29,9 +32,16 @@ public class RetrieveScheduleDelegate extends AsyncTask<String, Void, String>{
 
     private static final String TAG = RetrieveScheduleDelegate.class.getName();
     private ScheduleController scheduleController = null;
+    private ReviewSelectScheduleController reviewSelectScheduleController = null;
 
     public RetrieveScheduleDelegate(ScheduleController scheduleController) {
+        this.reviewSelectScheduleController = null;
         this.scheduleController = scheduleController;
+    }
+
+    public RetrieveScheduleDelegate(ReviewSelectScheduleController reviewSelectScheduleController) {
+        this.scheduleController = null;
+        this.reviewSelectScheduleController = reviewSelectScheduleController;
     }
 
     @Override
@@ -76,14 +86,17 @@ public class RetrieveScheduleDelegate extends AsyncTask<String, Void, String>{
 
                 for (int i = 0; i < spArray.length(); i++) {
                     JSONObject spJson = spArray.getJSONObject(i);
-                    String ProgamName = spJson.getString("progamName");
-                    String DateOfProgram = spJson.getString("dateOfProgram");
-                    String Duration = spJson.getString("duration");
-                    String Starttime = spJson.getString("starttime");
+                    JSONObject radioProgramObject = spJson.getJSONObject("radioProgram");
+                    String programName = radioProgramObject.getString("name");
+                    RadioProgram radioProgram = new RadioProgram();
+                    radioProgram.setRadioProgramName(programName);
+                    String dateOfProgram = spJson.getString("dateOfProgram");
+                    Integer duration = spJson.getInt("duration");
+                    String starttime = spJson.getString("startTime");
                     String presenter = spJson.getString("presenter");
                     String producer = spJson.getString("producer");
 
-                    programSlots.add(new ProgramSlot(ProgamName, DateOfProgram, Duration, Starttime, presenter, producer));
+                    programSlots.add(new ProgramSlot(radioProgram, dateOfProgram, duration, starttime, presenter, producer));
                 }
             } catch (JSONException e) {
                 Log.v(TAG, e.getMessage());
@@ -94,7 +107,7 @@ public class RetrieveScheduleDelegate extends AsyncTask<String, Void, String>{
 
         if (scheduleController != null)
             scheduleController.scheduleRetrieved(programSlots);
-        /*else if (reviewSelectProgramController != null)
-            reviewSelectProgramController.programsRetrieved(radioPrograms);*/
+        else if (reviewSelectScheduleController != null)
+            reviewSelectScheduleController.programsRetrieved(programSlots);
     }
 }

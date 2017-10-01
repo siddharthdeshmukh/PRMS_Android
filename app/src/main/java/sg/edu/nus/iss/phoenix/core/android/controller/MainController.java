@@ -5,6 +5,7 @@ import android.content.Intent;
 
 import sg.edu.nus.iss.phoenix.core.android.ui.MainScreen;
 import sg.edu.nus.iss.phoenix.radioprogram.entity.RadioProgram;
+import sg.edu.nus.iss.phoenix.scheduleprogram.entity.ProgramSlot;
 
 public class MainController {
     private static Application app = null;
@@ -58,6 +59,9 @@ public class MainController {
         startUseCase(username);
     }
 
+    public void selectedProgram(ProgramSlot rpSelected) {
+        startUseCase(username);
+    }
     public void selectMaintainUser(){
         ControlFactory.getUserController().startUseCase();
     }
