@@ -21,6 +21,7 @@ import sg.edu.nus.iss.phoenix.radioprogram.entity.RadioProgram;
 import sg.edu.nus.iss.phoenix.scheduleprogram.android.controller.ReviewSelectScheduleController;
 import sg.edu.nus.iss.phoenix.scheduleprogram.android.controller.ScheduleController;
 import sg.edu.nus.iss.phoenix.scheduleprogram.entity.ProgramSlot;
+import sg.edu.nus.iss.phoenix.scheduleprogram.util.Util;
 
 import static sg.edu.nus.iss.phoenix.core.android.delegate.DelegateHelper.PRMS_BASE_URL_SCHEDULE_PROGRAM;
 
@@ -92,11 +93,11 @@ public class RetrieveScheduleDelegate extends AsyncTask<String, Void, String>{
                     radioProgram.setRadioProgramName(programName);
                     String dateOfProgram = spJson.getString("dateOfProgram");
                     Integer duration = spJson.getInt("duration");
-                    String starttime = spJson.getString("startTime");
+                    String startTime = spJson.getString("startTime");
                     String presenter = spJson.getString("presenter");
                     String producer = spJson.getString("producer");
 
-                    programSlots.add(new ProgramSlot(radioProgram, dateOfProgram, duration, starttime, presenter, producer));
+                    programSlots.add(new ProgramSlot(radioProgram, Util.convertProgramStringToDate(dateOfProgram), duration, Util.convertStringToDate(startTime), presenter, producer));
                 }
             } catch (JSONException e) {
                 Log.v(TAG, e.getMessage());

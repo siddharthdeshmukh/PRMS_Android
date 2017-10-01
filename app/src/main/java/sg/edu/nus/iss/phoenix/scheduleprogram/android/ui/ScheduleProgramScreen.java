@@ -17,9 +17,11 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
@@ -27,6 +29,10 @@ import sg.edu.nus.iss.phoenix.R;
 import sg.edu.nus.iss.phoenix.core.android.controller.ControlFactory;
 import sg.edu.nus.iss.phoenix.radioprogram.entity.RadioProgram;
 import sg.edu.nus.iss.phoenix.scheduleprogram.entity.ProgramSlot;
+import sg.edu.nus.iss.phoenix.scheduleprogram.util.Util;
+
+import static sg.edu.nus.iss.phoenix.scheduleprogram.util.Util.convertDateToString;
+import static sg.edu.nus.iss.phoenix.scheduleprogram.util.Util.convertStringToDate;
 
 /**
  * Created by thushara on 9/26/2017.
@@ -45,6 +51,7 @@ public class ScheduleProgramScreen extends AppCompatActivity {
     private ProgramSlot sp2edit = null;
     KeyListener sRPNameEditTextKeyListener = null;
     Calendar myCalendar = Calendar.getInstance();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -87,7 +94,8 @@ public class ScheduleProgramScreen extends AppCompatActivity {
                                   int minute) {
                 myCalendar.set(Calendar.HOUR, hourOfDay);
                 myCalendar.set(Calendar.MINUTE, minute);
-                scheduleTimeEditText.setText(hourOfDay + ":" + minute);
+
+                scheduleTimeEditText.setText(Util.convertDateToString(myCalendar.getTime()));
             }
         };
 
@@ -114,7 +122,7 @@ public class ScheduleProgramScreen extends AppCompatActivity {
     }
 
     private void updateLabel() {
-        String myFormat = "MM-dd-yy";
+        String myFormat = "yyyy-MM-dd";
         SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
         scheduleDateEditText.setText(sdf.format(myCalendar.getTime()));
     }
@@ -164,10 +172,11 @@ public boolean onOptionsItemSelected(MenuItem item) {
                 Log.v(TAG, "Saving schedule program for create" + scheduleRPNameEditText.toString() + "...");
                 RadioProgram rp = new RadioProgram();
                 rp.setRadioProgramName(scheduleRPNameEditText.getText().toString());
+
                 ProgramSlot programSlot = new ProgramSlot(rp,
-                        scheduleDateEditText.getText().toString(),
+                        Util.convertProgramStringToDate(scheduleDateEditText.getText().toString()),
                         Integer.parseInt(scheduleDurationEditText.getSelectedItem().toString()),
-                        scheduleTimeEditText.getText().toString(),
+                        Util.convertProgramTimeStringToDate(scheduleTimeEditText.getText().toString()),
                         schedulePresenter.getText().toString(),
                         scheduleProducer.getText().toString());
                 ControlFactory.getScheduleController().selectCreateSchedule(programSlot);
@@ -179,9 +188,9 @@ public boolean onOptionsItemSelected(MenuItem item) {
                 sp2edit.setRadioProgram(rp);
                 sp2edit.setPresenter(schedulePresenter.getText().toString());
                 sp2edit.setProducer(scheduleProducer.getText().toString());
-                sp2edit.setScheduleDate(scheduleDateEditText.getText().toString());
+                sp2edit.setScheduleDate(Util.convertProgramStringToDate(scheduleDateEditText.getText().toString()));
                 sp2edit.setScheduleDuration(Integer.parseInt(scheduleDurationEditText.getSelectedItem().toString()));
-                sp2edit.setScheduleStartTime(scheduleTimeEditText.getText().toString());
+                sp2edit.setScheduleStartTime(Util.convertProgramTimeStringToDate(scheduleTimeEditText.getText().toString()));
                 ControlFactory.getScheduleController().scheduleUpdated(sp2edit);
             }
             return true;
@@ -224,7 +233,7 @@ public boolean onOptionsItemSelected(MenuItem item) {
         this.sp2edit = sp2edit;
         if (sp2edit != null && !reviewSelect.equalsIgnoreCase("true")) {
             scheduleRPNameEditText.setText(sp2edit.getRadioProgram().getRadioProgramName(), TextView.BufferType.NORMAL);
-            scheduleDateEditText.setText(sp2edit.getScheduleDate(),TextView.BufferType.NORMAL);
+            scheduleDateEditText.setText(Util.convertProgramDateToString(sp2edit.getScheduleDate()),TextView.BufferType.NORMAL);
             List<String> dbValue = new ArrayList<String>();
             dbValue.add(String.valueOf(sp2edit.getScheduleDuration()));
             dbValue.add("30");
@@ -236,7 +245,7 @@ public boolean onOptionsItemSelected(MenuItem item) {
             dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             scheduleDurationEditText.setAdapter(dataAdapter);
             // setSpinner();
-            scheduleTimeEditText.setText(sp2edit.getScheduleStartTime(), TextView.BufferType.EDITABLE);
+            scheduleTimeEditText.setText(Util.convertDateToString(sp2edit.getScheduleStartTime()), TextView.BufferType.EDITABLE);
             schedulePresenter.setText(sp2edit.getPresenter(), TextView.BufferType.EDITABLE);
             scheduleProducer.setText(sp2edit.getProducer(), TextView.BufferType.EDITABLE);
             scheduleRPNameEditText.setKeyListener(null);
