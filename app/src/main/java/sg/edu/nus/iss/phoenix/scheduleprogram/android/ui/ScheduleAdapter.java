@@ -12,11 +12,14 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import sg.edu.nus.iss.phoenix.R;
 import sg.edu.nus.iss.phoenix.scheduleprogram.entity.ProgramSlot;
+import sg.edu.nus.iss.phoenix.scheduleprogram.util.Util;
 
 /**
  * Created by thushara on 9/26/2017.
@@ -43,11 +46,11 @@ public class ScheduleAdapter extends ArrayAdapter<ProgramSlot> {
         slotName.setKeyListener(null); // This disables editing.
 
         EditText slotDate = (EditText)listItemView.findViewById(R.id.maintain_schedule_date_text_view);
-        slotDate.setText(currentPS.getScheduleDate(), TextView.BufferType.NORMAL);
+        slotDate.setText(Util.convertProgramDateToString(currentPS.getScheduleDate()), TextView.BufferType.NORMAL);
         slotDate.setKeyListener(null);
 
         EditText slotTime = (EditText)listItemView.findViewById(R.id.maintain_schedule_starttime_text_view);
-        slotTime.setText(currentPS.getScheduleStartTime().substring(11,19), TextView.BufferType.NORMAL);
+        slotTime.setText(Util.convertDateToString(currentPS.getScheduleStartTime()), TextView.BufferType.NORMAL);
         slotTime.setKeyListener(null);
 
         Spinner slotDuration = (Spinner) listItemView.findViewById(R.id.maintain_schedule_duration_text_view);
@@ -69,5 +72,4 @@ public class ScheduleAdapter extends ArrayAdapter<ProgramSlot> {
 
         return listItemView;
     }
-
 }

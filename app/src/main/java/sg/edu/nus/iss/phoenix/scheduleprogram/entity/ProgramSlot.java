@@ -1,5 +1,7 @@
 package sg.edu.nus.iss.phoenix.scheduleprogram.entity;
 
+import java.util.Date;
+
 import sg.edu.nus.iss.phoenix.radioprogram.entity.RadioProgram;
 
 /**
@@ -8,14 +10,14 @@ import sg.edu.nus.iss.phoenix.radioprogram.entity.RadioProgram;
 
 public class ProgramSlot {
     private RadioProgram radioProgram;
-    private String scheduleDate;
+    private Date scheduleDate;
     private Integer scheduleDuration;
-    private String scheduleStartTime;
+    private Date scheduleStartTime;
     private String presenter;
     private String producer;
 
 
-    public ProgramSlot(RadioProgram radioProgram, String scheduleDate, Integer scheduleDuration, String scheduleStartTime, String presenter, String producer) {
+    public ProgramSlot(RadioProgram radioProgram, Date scheduleDate, Integer scheduleDuration, Date scheduleStartTime, String presenter, String producer) {
         this.radioProgram = radioProgram;
        this.scheduleDate=scheduleDate;
         this.scheduleDuration=scheduleDuration;
@@ -32,11 +34,11 @@ public class ProgramSlot {
         this.radioProgram = radioProgram;
     }
 
-    public String getScheduleDate() {
+    public Date getScheduleDate() {
         return scheduleDate;
     }
 
-    public void setScheduleDate(String scheduleDate) {
+    public void setScheduleDate(Date scheduleDate) {
         this.scheduleDate = scheduleDate;
     }
 
@@ -44,11 +46,11 @@ public class ProgramSlot {
         return scheduleDuration;
     }
 
-    public String getScheduleStartTime() {
+    public Date getScheduleStartTime() {
         return scheduleStartTime;
     }
 
-    public void setScheduleStartTime(String scheduleStartTime) {
+    public void setScheduleStartTime(Date scheduleStartTime) {
         this.scheduleStartTime = scheduleStartTime;
     }
 

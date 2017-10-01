@@ -16,6 +16,7 @@ import java.net.URL;
 
 import sg.edu.nus.iss.phoenix.scheduleprogram.android.controller.ScheduleController;
 import sg.edu.nus.iss.phoenix.scheduleprogram.entity.ProgramSlot;
+import sg.edu.nus.iss.phoenix.scheduleprogram.util.Util;
 
 import static sg.edu.nus.iss.phoenix.core.android.delegate.DelegateHelper.PRMS_BASE_URL_SCHEDULE_PROGRAM;
 
@@ -58,9 +59,9 @@ public class CreateScheduleDelegate extends AsyncTask<ProgramSlot, Void, Boolean
             JSONObject radioProgramObject = new JSONObject();
             radioProgramObject.put("name",params[0].getRadioProgram().getRadioProgramName());
             json.put("radioProgram", radioProgramObject);
-            json.put("dateOfProgram", params[0].getScheduleDate());
+            json.put("dateOfProgram", Util.convertProgramDateToJSONString(params[0].getScheduleDate()));
             json.put("duration", params[0].getScheduleDuration());
-            json.put("startTime", params[0].getScheduleStartTime());
+            json.put("startTime", Util.convertProgramTimeToJSONString(params[0].getScheduleStartTime()));
             json.put("presenter", params[0].getPresenter());
             json.put("producer", params[0].getProducer());
             Log.v("post json",json.toString());
