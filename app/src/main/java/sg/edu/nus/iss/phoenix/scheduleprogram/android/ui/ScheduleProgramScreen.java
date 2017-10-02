@@ -66,7 +66,7 @@ public class ScheduleProgramScreen extends AppCompatActivity {
         scheduleRPNameEditText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ControlFactory.getReviewSelectScheduleController().startUseCase();
+                ControlFactory.getReviewSelectProgramController().startUseCase();
             }
         });
 
@@ -237,6 +237,10 @@ public boolean onOptionsItemSelected(MenuItem item) {
 
     public void selectedProducer(Producer producer) {
         this.scheduleProducer.setText(producer.getId());
+    }
+
+    public void selectedRadioProgram(RadioProgram radioProgram) {
+        this.scheduleRPNameEditText.setText(radioProgram.getRadioProgramName());
     }
 
     public void createSchedule() {

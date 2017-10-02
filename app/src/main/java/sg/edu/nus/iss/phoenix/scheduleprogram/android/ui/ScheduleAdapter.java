@@ -3,7 +3,6 @@ package sg.edu.nus.iss.phoenix.scheduleprogram.android.ui;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,9 +11,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import sg.edu.nus.iss.phoenix.R;
@@ -55,7 +52,6 @@ public class ScheduleAdapter extends ArrayAdapter<ProgramSlot> {
 
         Spinner slotDuration = (Spinner) listItemView.findViewById(R.id.maintain_schedule_duration_text_view);
         List<String> dbValue = new ArrayList<String>();
-        Log.v("currentDur",String.valueOf(currentPS.getScheduleDuration()));
         dbValue.add(String.valueOf(currentPS.getScheduleDuration()));
         ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(getContext(),
                 android.R.layout.simple_spinner_item, dbValue);
