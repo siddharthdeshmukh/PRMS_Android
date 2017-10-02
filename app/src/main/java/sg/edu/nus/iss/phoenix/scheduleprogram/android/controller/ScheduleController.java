@@ -7,6 +7,7 @@ import java.util.List;
 
 import sg.edu.nus.iss.phoenix.core.android.controller.ControlFactory;
 import sg.edu.nus.iss.phoenix.core.android.controller.MainController;
+import sg.edu.nus.iss.phoenix.radioprogram.entity.RadioProgram;
 import sg.edu.nus.iss.phoenix.scheduleprogram.android.delegate.CreateScheduleDelegate;
 import sg.edu.nus.iss.phoenix.scheduleprogram.android.delegate.ModifyScheduleDelegate;
 import sg.edu.nus.iss.phoenix.scheduleprogram.android.delegate.RetrieveScheduleDelegate;
@@ -25,11 +26,13 @@ public class ScheduleController {
     private SchdeuleListScreen scheduleListScreen;
     private ScheduleProgramScreen scheduleProgramScreen;
     private ProgramSlot sp2edit = null;
+    private RadioProgram radioProgramSelected;
     private Presenter selectedPresenter;
     private Producer selectedProducer;
     private String reviewSelect;
     public void startUseCase() {
         sp2edit = null;
+        radioProgramSelected = null;
         reviewSelect = "";
         selectedPresenter = null;
         selectedProducer = null;
@@ -74,6 +77,12 @@ public class ScheduleController {
         sp2edit = rpSelected;
         reviewSelect = "true";
     }
+
+    public void reviewSelectRadioProgramSelected(RadioProgram radioProgram) {
+        radioProgramSelected = radioProgram;
+        reviewSelect = "true";
+    }
+
     // -----
     public void reviewSelectPresenterSelected(Presenter presenterSelected) {
         selectedPresenter = presenterSelected;
@@ -88,8 +97,10 @@ public class ScheduleController {
         this.scheduleProgramScreen = scheduleProgramScreen;
         if (sp2edit == null){
             scheduleProgramScreen.createSchedule();
+            if(radioProgramSelected != null)
+                scheduleProgramScreen.selectedRadioProgram(radioProgramSelected);
             if(selectedPresenter != null)
-            scheduleProgramScreen.selectedPresenter(selectedPresenter);
+                scheduleProgramScreen.selectedPresenter(selectedPresenter);
             if(selectedProducer != null)
                 scheduleProgramScreen.selectedProducer(selectedProducer);
         /*else if(reviewSelect.equalsIgnoreCase("true")) {

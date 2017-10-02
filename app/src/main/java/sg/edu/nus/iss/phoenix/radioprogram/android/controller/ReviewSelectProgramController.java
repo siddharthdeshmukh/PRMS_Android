@@ -8,9 +8,9 @@ import java.util.List;
 import sg.edu.nus.iss.phoenix.core.android.controller.ControlFactory;
 import sg.edu.nus.iss.phoenix.core.android.controller.MainController;
 import sg.edu.nus.iss.phoenix.radioprogram.android.delegate.RetrieveProgramsDelegate;
-import sg.edu.nus.iss.phoenix.radioprogram.android.ui.MaintainProgramScreen;
 import sg.edu.nus.iss.phoenix.radioprogram.android.ui.ReviewSelectProgramScreen;
 import sg.edu.nus.iss.phoenix.radioprogram.entity.RadioProgram;
+import sg.edu.nus.iss.phoenix.scheduleprogram.android.ui.ScheduleProgramScreen;
 
 public class ReviewSelectProgramController {
     // Tag for logging.
@@ -37,8 +37,8 @@ public class ReviewSelectProgramController {
     public void selectProgram(RadioProgram radioProgram) {
         rpSelected = radioProgram;
         Log.v(TAG, "Selected radio program: " + radioProgram.getRadioProgramName() + ".");
-        ControlFactory.getProgramController().reviewSelectProgramSelected(rpSelected);
-        Intent intent = new Intent(MainController.getApp(), MaintainProgramScreen.class);
+        ControlFactory.getScheduleController().reviewSelectRadioProgramSelected(rpSelected);
+        Intent intent = new Intent(MainController.getApp(), ScheduleProgramScreen.class);
         MainController.displayScreen(intent);
     }
 
