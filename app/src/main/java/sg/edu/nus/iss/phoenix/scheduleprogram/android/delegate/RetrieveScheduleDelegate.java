@@ -94,9 +94,14 @@ public class RetrieveScheduleDelegate extends AsyncTask<String, Void, String>{
                     String dateOfProgram = spJson.getString("dateOfProgram");
                     Integer duration = spJson.getInt("duration");
                     String startTime = spJson.getString("startTime");
-                    String presenter = spJson.getString("presenter");
-                    String producer = spJson.getString("producer");
-
+                    String presenter="";
+                    if (spJson.has("presenter")){
+                        presenter  = spJson.getString("presenter");
+                    }
+                    String producer="";
+                    if (spJson.has("producer")){
+                        presenter  = spJson.getString("producer");
+                    }
                     programSlots.add(new ProgramSlot(radioProgram, Util.convertProgramStringToDate(dateOfProgram), duration, Util.convertStringToDate(startTime), presenter, producer));
                 }
             } catch (JSONException e) {
@@ -106,8 +111,10 @@ public class RetrieveScheduleDelegate extends AsyncTask<String, Void, String>{
             Log.v(TAG, "JSON response error.");
         }
 
-        if (scheduleController != null)
+        if (scheduleController != null){
+            Log.v("splist size ", String.valueOf(programSlots.size()));
             scheduleController.scheduleRetrieved(programSlots);
+        }
         else if (reviewSelectScheduleController != null)
             reviewSelectScheduleController.programsRetrieved(programSlots);
     }
