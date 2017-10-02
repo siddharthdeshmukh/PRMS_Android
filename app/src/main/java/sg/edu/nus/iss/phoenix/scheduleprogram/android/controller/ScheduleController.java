@@ -8,6 +8,7 @@ import java.util.List;
 import sg.edu.nus.iss.phoenix.core.android.controller.ControlFactory;
 import sg.edu.nus.iss.phoenix.core.android.controller.MainController;
 import sg.edu.nus.iss.phoenix.scheduleprogram.android.delegate.CreateScheduleDelegate;
+import sg.edu.nus.iss.phoenix.scheduleprogram.android.delegate.DeleteScheduleDelegate;
 import sg.edu.nus.iss.phoenix.scheduleprogram.android.delegate.ModifyScheduleDelegate;
 import sg.edu.nus.iss.phoenix.scheduleprogram.android.delegate.RetrieveScheduleDelegate;
 import sg.edu.nus.iss.phoenix.scheduleprogram.android.ui.SchdeuleListScreen;
@@ -151,5 +152,13 @@ public class ScheduleController {
     }*/
     public void maintainedSchedule() {
         ControlFactory.getMainController().maintainSchedule();
+    }
+
+    public void selectDeleteSchedule(ProgramSlot programSlot) {
+        new DeleteScheduleDelegate(this).execute(programSlot);
+    }
+    public void scheduleDeleted(boolean success) {
+        // Go back to ProgramList screen with refreshed programs.
+        startUseCase();
     }
 }

@@ -209,6 +209,10 @@ public boolean onOptionsItemSelected(MenuItem item) {
             ControlFactory.getProgramController().selectDeleteProgram(rp2edit);
             return true;*/
         // Respond to a click on the "Cancel" menu option
+        case R.id.action_delete:
+            Log.v(TAG, "Deleting radio program schedule " + sp2edit.getRadioProgram() + "...");
+            ControlFactory.getScheduleController().selectDeleteSchedule(sp2edit);
+            return true;
         case R.id.action_cancel:
             Log.v(TAG, "Canceling creating/editing schedule program...");
             ControlFactory.getScheduleController().selectCancelCreateEditSchedule();
