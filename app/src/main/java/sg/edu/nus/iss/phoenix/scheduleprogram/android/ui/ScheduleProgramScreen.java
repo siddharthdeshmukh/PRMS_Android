@@ -147,6 +147,12 @@ public class ScheduleProgramScreen extends AppCompatActivity {
     @Override
     protected void onPostCreate(@Nullable Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
+        if(scheduleRPNameEditText.getText() != null || !scheduleRPNameEditText.getText().equals(""))
+            scheduleRPNameEditText.setOnClickListener(null);
+/*        if(scheduleDateEditText.getText() != null || !scheduleDateEditText.getText().equals(""))
+            scheduleDateEditText.setOnClickListener(null);
+        if(scheduleTimeEditText.getText() != null || !scheduleTimeEditText.getText().equals(""))
+            scheduleTimeEditText.setOnClickListener(null);*/
         ControlFactory.getScheduleController().onDisplayScheduleProgram(this);
     }
 
@@ -182,7 +188,7 @@ public boolean onOptionsItemSelected(MenuItem item) {
                 RadioProgram rp = new RadioProgram();
                 rp.setRadioProgramName(scheduleRPNameEditText.getText().toString());
 
-                ProgramSlot programSlot = new ProgramSlot(rp,
+                ProgramSlot programSlot = new ProgramSlot(null,rp,
                         Util.convertProgramStringToDate(scheduleDateEditText.getText().toString()),
                         Integer.parseInt(scheduleDurationEditText.getSelectedItem().toString()),
                         Util.convertProgramTimeStringToDate(scheduleTimeEditText.getText().toString()),
@@ -280,13 +286,6 @@ public boolean onOptionsItemSelected(MenuItem item) {
             scheduleRPNameEditText.setKeyListener(null);
             this.sp2edit = null;
         }
-    }
-
-    public void selectPresenter(View v){
-        ControlFactory.getReviewSelectPresenterProducerController().startUseCase();
-    }
-    public void selectProducer(View v){
-        ControlFactory.getReviewSelectPresenterProducerController().startUseCase();
     }
 
 }

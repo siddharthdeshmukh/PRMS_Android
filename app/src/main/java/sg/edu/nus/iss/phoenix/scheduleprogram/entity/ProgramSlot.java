@@ -9,6 +9,7 @@ import sg.edu.nus.iss.phoenix.radioprogram.entity.RadioProgram;
  */
 
 public class ProgramSlot {
+    private Integer id;
     private RadioProgram radioProgram;
     private Date scheduleDate;
     private Integer scheduleDuration;
@@ -17,13 +18,22 @@ public class ProgramSlot {
     private String producer;
 
 
-    public ProgramSlot(RadioProgram radioProgram, Date scheduleDate, Integer scheduleDuration, Date scheduleStartTime, String presenter, String producer) {
+    public ProgramSlot(Integer id, RadioProgram radioProgram, Date scheduleDate, Integer scheduleDuration, Date scheduleStartTime, String presenter, String producer) {
+        this.id = id;
         this.radioProgram = radioProgram;
-       this.scheduleDate=scheduleDate;
+        this.scheduleDate=scheduleDate;
         this.scheduleDuration=scheduleDuration;
         this.scheduleStartTime=scheduleStartTime;
         this.presenter = presenter;
         this.producer = producer;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public RadioProgram getRadioProgram() {

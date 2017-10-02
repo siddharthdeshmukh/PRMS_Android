@@ -94,6 +94,7 @@ public class RetrieveScheduleDelegate extends AsyncTask<String, Void, String>{
                     String dateOfProgram = spJson.getString("dateOfProgram");
                     Integer duration = spJson.getInt("duration");
                     String startTime = spJson.getString("startTime");
+                    Integer id = spJson.getInt("id");
                     String presenter="";
                     if (spJson.has("presenter")){
                         presenter  = spJson.getString("presenter");
@@ -102,7 +103,7 @@ public class RetrieveScheduleDelegate extends AsyncTask<String, Void, String>{
                     if (spJson.has("producer")){
                         presenter  = spJson.getString("producer");
                     }
-                    programSlots.add(new ProgramSlot(radioProgram, Util.convertProgramStringToDate(dateOfProgram), duration, Util.convertStringToDate(startTime), presenter, producer));
+                    programSlots.add(new ProgramSlot(id,radioProgram, Util.convertProgramStringToDate(dateOfProgram), duration, Util.convertStringToDate(startTime), presenter, producer));
                 }
             } catch (JSONException e) {
                 Log.v(TAG, e.getMessage());
