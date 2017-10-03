@@ -58,6 +58,7 @@ public class ModifyScheduleDelegate  extends AsyncTask<ProgramSlot, Void, Boolea
             json.put("startTime", Util.convertProgramTimeToJSONString(params[0].getScheduleStartTime()));
             json.put("presenter", params[0].getPresenter());
             json.put("producer", params[0].getProducer());
+            json.put("id", params[0].getId());
             Log.v("Update json", json.toString());
         } catch (JSONException e) {
             Log.v(TAG, e.getMessage());

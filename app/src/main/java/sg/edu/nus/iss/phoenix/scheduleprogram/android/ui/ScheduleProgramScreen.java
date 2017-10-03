@@ -147,8 +147,8 @@ public class ScheduleProgramScreen extends AppCompatActivity {
     @Override
     protected void onPostCreate(@Nullable Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
-        if(scheduleRPNameEditText.getText() != null || !scheduleRPNameEditText.getText().equals(""))
-            scheduleRPNameEditText.setOnClickListener(null);
+        /*if(scheduleRPNameEditText.getText().length() != 0)
+            scheduleRPNameEditText.setOnClickListener(null);*/
 /*        if(scheduleDateEditText.getText() != null || !scheduleDateEditText.getText().equals(""))
             scheduleDateEditText.setOnClickListener(null);
         if(scheduleTimeEditText.getText() != null || !scheduleTimeEditText.getText().equals(""))
@@ -264,6 +264,8 @@ public boolean onOptionsItemSelected(MenuItem item) {
         this.sp2edit = sp2edit;
         if (sp2edit != null && !reviewSelect.equalsIgnoreCase("true")) {
             scheduleRPNameEditText.setText(sp2edit.getRadioProgram().getRadioProgramName(), TextView.BufferType.NORMAL);
+            if(scheduleRPNameEditText.getText().length() != 0)
+                scheduleRPNameEditText.setOnClickListener(null);
             scheduleDateEditText.setText(Util.convertProgramDateToString(sp2edit.getScheduleDate()),TextView.BufferType.NORMAL);
             List<String> dbValue = new ArrayList<String>();
             dbValue.add(String.valueOf(sp2edit.getScheduleDuration()));
