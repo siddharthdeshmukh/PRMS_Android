@@ -101,7 +101,7 @@ public class RetrieveScheduleDelegate extends AsyncTask<String, Void, String>{
                     }
                     String producer="";
                     if (spJson.has("producer")){
-                        presenter  = spJson.getString("producer");
+                        producer  = spJson.getString("producer");
                     }
                     programSlots.add(new ProgramSlot(id,radioProgram, Util.convertProgramStringToDate(dateOfProgram), duration, Util.convertStringToDate(startTime), presenter, producer));
                 }
