@@ -71,7 +71,7 @@ public class DeleteProgramDelegate extends AsyncTask<String, Void, Boolean> {
     @Override
     protected Boolean doInBackground(RadioProgram... params) {
         // Encode the name of radio program in case of the presence of special characters.
-        String name = params[0].getRadioProgramName();
+        String name = params[0].getRadioProgram();
         String desc = params[0].getRadioProgramDescription();
         String duration = params[0].getRadioProgramDuration();
         Uri builtUri = Uri.parse(PRMS_BASE_URL).buildUpon().build();

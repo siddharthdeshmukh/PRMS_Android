@@ -7,8 +7,12 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import sg.edu.nus.iss.phoenix.R;
 import sg.edu.nus.iss.phoenix.core.android.controller.ControlFactory;
+import sg.edu.nus.iss.phoenix.user.entity.Role;
 
 public class MainScreen extends AppCompatActivity {
     private Button mbtn_radio_program;
@@ -79,6 +83,21 @@ public class MainScreen extends AppCompatActivity {
     public void showUsername(String username) {
         TextView usernameView = (TextView) findViewById(R.id.username);
         usernameView.setText(username);
+    }
+
+    public void enableDisableButtons(ArrayList<Role> roleList){
+        List<String> roleStr = new ArrayList<>() ;
+        for(Role role: roleList){
+            roleStr.add(role.getRole());
+        }
+        if(!roleStr.contains(Role.ADMIN)){
+            this.mbtn_user.setEnabled(Boolean.FALSE);
+        }
+        if(!roleStr.contains(Role.MANAGER)){
+            this.mbtn_schedule.setEnabled(Boolean.FALSE);
+            this.mbtn_radio_program.setEnabled(Boolean.FALSE);
+        }
+
     }
 }
 

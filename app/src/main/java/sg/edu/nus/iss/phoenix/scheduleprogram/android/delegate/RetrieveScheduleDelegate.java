@@ -1,4 +1,5 @@
 package sg.edu.nus.iss.phoenix.scheduleprogram.android.delegate;
+
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.util.Log;
@@ -16,8 +17,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import sg.edu.nus.iss.phoenix.radioprogram.entity.RadioProgram;
+import sg.edu.nus.iss.phoenix.scheduleprogram.android.controller.ReviewSelectScheduleController;
 import sg.edu.nus.iss.phoenix.scheduleprogram.android.controller.ScheduleController;
 import sg.edu.nus.iss.phoenix.scheduleprogram.entity.ProgramSlot;
+import sg.edu.nus.iss.phoenix.scheduleprogram.util.Util;
 
 import static sg.edu.nus.iss.phoenix.core.android.delegate.DelegateHelper.PRMS_BASE_URL_SCHEDULE_PROGRAM;
 
@@ -29,9 +33,16 @@ public class RetrieveScheduleDelegate extends AsyncTask<String, Void, String>{
 
     private static final String TAG = RetrieveScheduleDelegate.class.getName();
     private ScheduleController scheduleController = null;
+    private ReviewSelectScheduleController reviewSelectScheduleController = null;
 
     public RetrieveScheduleDelegate(ScheduleController scheduleController) {
+        this.reviewSelectScheduleController = null;
         this.scheduleController = scheduleController;
+    }
+
+    public RetrieveScheduleDelegate(ReviewSelectScheduleController reviewSelectScheduleController) {
+        this.scheduleController = null;
+        this.reviewSelectScheduleController = reviewSelectScheduleController;
     }
 
     @Override
@@ -76,14 +87,23 @@ public class RetrieveScheduleDelegate extends AsyncTask<String, Void, String>{
 
                 for (int i = 0; i < spArray.length(); i++) {
                     JSONObject spJson = spArray.getJSONObject(i);
-                    String ProgamName = spJson.getString("progamName");
-                    String DateOfProgram = spJson.getString("dateOfProgram");
-                    String Duration = spJson.getString("duration");
-                    String Starttime = spJson.getString("starttime");
-                    String presenter = spJson.getString("presenter");
-                    String producer = spJson.getString("producer");
-
-                    programSlots.add(new ProgramSlot(ProgamName, DateOfProgram, Duration, Starttime, presenter, producer));
+                    JSONObject radioProgramObject = spJson.getJSONObject("radioProgram");
+                    String programName = radioProgramObject.getString("name");
+                    RadioProgram radioProgram = new RadioProgram();
+                    radioProgram.setRadioProgramName(programName);
+                    String dateOfProgram = spJson.getString("dateOfProgram");
+                    Integer duration = spJson.getInt("duration");
+                    String startTime = spJson.getString("startTime");
+                    Integer id = spJson.getInt("id");
+                    String presenter="";
+                    if (spJson.has("presenter")){
+                        presenter  = spJson.getString("presenter");
+                    }
+                    String producer="";
+                    if (spJson.has("producer")){
+                        producer  = spJson.getString("producer");
+                    }
+                    programSlots.add(new ProgramSlot(id,radioProgram, Util.convertProgramStringToDate(dateOfProgram), duration, Util.convertStringToDate(startTime), presenter, producer));
                 }
             } catch (JSONException e) {
                 Log.v(TAG, e.getMessage());
@@ -92,9 +112,11 @@ public class RetrieveScheduleDelegate extends AsyncTask<String, Void, String>{
             Log.v(TAG, "JSON response error.");
         }
 
-        if (scheduleController != null)
+        if (scheduleController != null){
+            Log.v("splist size ", String.valueOf(programSlots.size()));
             scheduleController.scheduleRetrieved(programSlots);
-        /*else if (reviewSelectProgramController != null)
-            reviewSelectProgramController.programsRetrieved(radioPrograms);*/
+        }
+        else if (reviewSelectScheduleController != null)
+            reviewSelectScheduleController.programsRetrieved(programSlots);
     }
 }

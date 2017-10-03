@@ -1,8 +1,6 @@
 package sg.edu.nus.iss.phoenix.scheduleprogram.android.delegate;
 
 
-import sg.edu.nus.iss.phoenix.scheduleprogram.android.delegate.ModifyScheduleDelegate;
-import sg.edu.nus.iss.phoenix.scheduleprogram.android.controller.ScheduleController;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.util.Log;
@@ -16,8 +14,9 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-
+import sg.edu.nus.iss.phoenix.scheduleprogram.android.controller.ScheduleController;
 import sg.edu.nus.iss.phoenix.scheduleprogram.entity.ProgramSlot;
+import sg.edu.nus.iss.phoenix.scheduleprogram.util.Util;
 
 import static sg.edu.nus.iss.phoenix.core.android.delegate.DelegateHelper.PRMS_BASE_URL_SCHEDULE_PROGRAM;
 
@@ -51,10 +50,16 @@ public class ModifyScheduleDelegate  extends AsyncTask<ProgramSlot, Void, Boolea
 
         JSONObject json = new JSONObject();
         try {
-            json.put("ProgamName", params[0].getRadioProgramName());
-            json.put("DateOfProgram", params[0].getScheduleDate());
-            json.put("tDuration", params[0].getScheduleDuration());
-            json.put("Starttime", params[0].getScheduleStartTime());
+            JSONObject radioProgramObject = new JSONObject();
+            radioProgramObject.put("name",params[0].getRadioProgram().getRadioProgramName());
+            json.put("radioProgram", radioProgramObject);
+            json.put("dateOfProgram", Util.convertProgramDateToJSONString(params[0].getScheduleDate()));
+            json.put("duration", params[0].getScheduleDuration());
+            json.put("startTime", Util.convertProgramTimeToJSONString(params[0].getScheduleStartTime()));
+            json.put("presenter", params[0].getPresenter());
+            json.put("producer", params[0].getProducer());
+            json.put("id", params[0].getId());
+            Log.v("Update json", json.toString());
         } catch (JSONException e) {
             Log.v(TAG, e.getMessage());
         }

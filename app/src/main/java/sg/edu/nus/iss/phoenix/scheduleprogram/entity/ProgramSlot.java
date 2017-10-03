@@ -1,56 +1,70 @@
 package sg.edu.nus.iss.phoenix.scheduleprogram.entity;
 
+import java.util.Date;
+
+import sg.edu.nus.iss.phoenix.radioprogram.entity.RadioProgram;
+
 /**
  * Created by thushara on 9/26/2017.
  */
 
 public class ProgramSlot {
-    private String radioProgramName;
-    private String scheduleDate;
-    private String scheduleDuration;
-    private String scheduleStartTime;
+    private Integer id;
+    private RadioProgram radioProgram;
+    private Date scheduleDate;
+    private Integer scheduleDuration;
+    private Date scheduleStartTime;
     private String presenter;
     private String producer;
 
 
-    public ProgramSlot(String radioProgramName, String scheduleDate, String scheduleDuration, String scheduleStartTime, String presenter, String producer) {
-        this.radioProgramName = radioProgramName;
-       this.scheduleDate=scheduleDate;
+    public ProgramSlot(Integer id, RadioProgram radioProgram, Date scheduleDate, Integer scheduleDuration, Date scheduleStartTime, String presenter, String producer) {
+        this.id = id;
+        this.radioProgram = radioProgram;
+        this.scheduleDate=scheduleDate;
         this.scheduleDuration=scheduleDuration;
         this.scheduleStartTime=scheduleStartTime;
         this.presenter = presenter;
         this.producer = producer;
     }
 
-    public String getRadioProgramName() {
-        return radioProgramName;
+    public Integer getId() {
+        return id;
     }
 
-    public void setRadioProgramName(String radioProgramName) {
-        this.radioProgramName = radioProgramName;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
-    public String getScheduleDate() {
+    public RadioProgram getRadioProgram() {
+        return radioProgram;
+    }
+
+    public void setRadioProgram(RadioProgram radioProgram) {
+        this.radioProgram = radioProgram;
+    }
+
+    public Date getScheduleDate() {
         return scheduleDate;
     }
 
-    public void setScheduleDate(String scheduleDate) {
+    public void setScheduleDate(Date scheduleDate) {
         this.scheduleDate = scheduleDate;
     }
 
-    public String getScheduleDuration() {
+    public Integer getScheduleDuration() {
         return scheduleDuration;
     }
 
-    public String getScheduleStartTime() {
+    public Date getScheduleStartTime() {
         return scheduleStartTime;
     }
 
-    public void setScheduleStartTime(String scheduleStartTime) {
+    public void setScheduleStartTime(Date scheduleStartTime) {
         this.scheduleStartTime = scheduleStartTime;
     }
 
-    public void setScheduleDuration(String scheduleDuration) {
+    public void setScheduleDuration(Integer scheduleDuration) {
         this.scheduleDuration = scheduleDuration;
     }
 

@@ -12,9 +12,14 @@ import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
+import java.util.StringTokenizer;
 
 import sg.edu.nus.iss.phoenix.authenticate.android.controller.LoginController;
+import sg.edu.nus.iss.phoenix.user.entity.Role;
+import sg.edu.nus.iss.phoenix.user.entity.User;
 
 import static sg.edu.nus.iss.phoenix.core.android.delegate.DelegateHelper.PRMS_BASE_URL_AUTHENTICATE;
 
@@ -69,12 +74,25 @@ public class LoginDelegate extends AsyncTask<String, Void, String> {
             String authPass = "true";
             String authStatus = reader.getString("authStatus");
             String username = reader.getString("username");
+            String roleStr = reader.getString("role");
+            User user = new User();
+            user.setId(username);
+            ArrayList<Role> rolesList = new ArrayList<>();
+            if(roleStr!=null &&!roleStr.isEmpty()){
+                String[] strArray = roleStr.split(":");
+                for(String str: strArray){
+                    Role roleObj = new Role();
+                    roleObj.setRole(str);
+                    rolesList.add(roleObj);
+                }
+                user.setRoles(rolesList);
+            }
             if (authStatus.equals(authPass)) {
                 Log.v(TAG, "Logged in as " + username + ".");
-                loginController.loggedIn(true, username);
+                loginController.loggedIn(true, user);
             } else {
                 Log.v(TAG, "Failed to log in.");
-                loginController.loggedIn(false, username);
+                loginController.loggedIn(false, user);
             }
         } catch (JSONException e) {
             Log.v(TAG, e.getMessage());
