@@ -127,13 +127,21 @@ public class ScheduleController {
 
 
     public void scheduleUpdated(boolean success) {
-        // Go back to ProgramList screen with refreshed programs.
-        startUseCase();
+        if(!success){
+            scheduleProgramScreen.showErrorALert();
+        }else {
+            startUseCase();
+        }
     }
 
     public void scheduleCreated(boolean success) {
         // Go back to List screen with refreshed programs.
-        startUseCase();
+        if(!success){
+            scheduleProgramScreen.showErrorALert();
+        }else {
+            startUseCase();
+        }
+
     }
 
     public void selectCancelCreateEditSchedule() {

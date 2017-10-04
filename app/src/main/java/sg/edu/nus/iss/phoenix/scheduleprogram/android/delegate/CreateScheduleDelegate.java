@@ -83,7 +83,8 @@ public class CreateScheduleDelegate extends AsyncTask<ProgramSlot, Void, Boolean
             dos.writeUTF(json.toString());
             dos.write(256);
             Log.v(TAG, "Http PUT response " + httpURLConnection.getResponseCode());
-            success = true;
+            if(httpURLConnection.getResponseCode()==201)
+               success = true;
         } catch (IOException exception) {
             Log.v(TAG, exception.getMessage());
         } finally {
