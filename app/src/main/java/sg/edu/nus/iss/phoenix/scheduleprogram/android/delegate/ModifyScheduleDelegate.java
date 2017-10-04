@@ -78,6 +78,7 @@ public class ModifyScheduleDelegate  extends AsyncTask<ProgramSlot, Void, Boolea
             dos.writeUTF(json.toString());
             dos.write(512);
             Log.v(TAG, "Http POST response " + httpURLConnection.getResponseCode());
+            if(httpURLConnection.getResponseCode()==201)
             success = true;
         } catch (IOException exception) {
             Log.v(TAG, exception.getMessage());
